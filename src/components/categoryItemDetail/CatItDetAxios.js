@@ -38,7 +38,7 @@ function CatItDetAxios({ setAuctionItem, setAuctionBidInfo, setSeller , setBiddi
 
         // auctionImages 배열에 URL을 추가하여 상태 설정
         const formattedAuctionImages = auctionImages.map(imageUrl => 
-          `https://kr.object.ncloudstorage.com/${bucketName}/${imageUrl}`
+          `https://pub-545575e178394a0e85ed3d8f1bcaa827.r2.dev/${imageUrl}`
         );
         setAuctionImages(formattedAuctionImages); // URL이 포함된 auctionImages 데이터 설정
         console.log(auctionImages);
