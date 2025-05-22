@@ -1,0 +1,47 @@
+.mp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mp_banner {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.mp_banner-img {
+    display: flex;
+    width: 1200px;
+    height: 350px;
+    border: solid 1px #BFBFBF;
+    justify-content: right;
+    background-color: blue;
+}
+
+.mp_banner-pad {
+    width: 300px;
+    height: 350px;
+    border-left: solid 1px #BFBFBF;
+    background-color: black;
+    opacity: 40%;
+}
+
+.mp_container_title {
+    margin-top: 30px;
+    width: 1200px;
+}
+
+.mp_container_title p {
+    color: #555555;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.BestItems p{
+    color: #555555;
+    font-size: 16px;
+    font-weight: 600;
+}
