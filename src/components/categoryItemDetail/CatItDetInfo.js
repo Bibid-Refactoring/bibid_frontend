@@ -5,9 +5,7 @@ import loadingImage from '../../images/로딩화면.gif'
 
 const CatItDetInfo = ({ auctionNumber, auctionItem, auctionImages }) => {
 
-
   const [activeTab, setActiveTab] = useState('info'); // 독립적인 activeTab 상태
-
 
   if (!auctionItem) {
     return <div className='loading_image'><img src={loadingImage}></img></div>; // auctionItem + auctionImg 가 없을 때 로딩 메시지를 출력

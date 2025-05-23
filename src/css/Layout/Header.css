@@ -1,4 +1,4 @@
-body{
+body {
     width: 100%;
     height: auto;
     margin: 0;
@@ -17,7 +17,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 2px solid #BFBFBF;
+    border-bottom: 2px solid #bfbfbf;
     transition: all 0.3s ease;
     white-space: nowrap;
     margin: auto;
@@ -32,6 +32,7 @@ body{
 
 .HDnavbarMenu {
     display: flex;
+    flex-wrap: nowrap;
     padding: 0;
     justify-content: center;
     gap: 2.5rem;
@@ -42,8 +43,13 @@ body{
 
 .HDnavbarMenuItem {
     position: relative;
-  }
-  
+}
+
+.HDnavbarMenuItem,
+.HDnavbarMenu li a {
+    white-space: nowrap;
+}
+
 .HDnavbarMenuDetailBox {
     position: absolute;
     top: 7.97rem;
@@ -55,7 +61,7 @@ body{
     height: auto;
     z-index: 1000;
     transition: all 0.3s ease;
-    border-bottom: 1px solid #BFBFBF;
+    border-bottom: 1px solid #bfbfbf;
 }
 
 .HDnavbarMenuDetailFlex {
@@ -65,9 +71,9 @@ body{
     gap: 0.8rem;
     position: relative;
 }
-  
+
 .HDnavbarMenuDetail {
-    display: block; 
+    display: block;
     border-left: 1px solid #dbdbdb;
     padding-left: 20px;
     margin-top: 15px;
@@ -95,7 +101,7 @@ body{
 }
 
 .HDnavbarMenuDetail li a:hover {
-    color: #0A369D;
+    color: #0a369d;
 }
 
 .HDarrowIcon {
@@ -143,7 +149,7 @@ body{
 }
 
 .HDnavbarMenuDetailCategory li a:hover {
-    color: #0A369D;
+    color: #0a369d;
 }
 
 #HDnavbarMenuDetailCate a {
@@ -169,7 +175,7 @@ body{
 }
 
 .HDnavbarMenu li a:hover {
-    color: #0A369D;
+    color: #0a369d;
 }
 
 .HDnavbarSearchbar {
@@ -185,7 +191,7 @@ body{
     background-position: 10px center;
     background-repeat: no-repeat;
     border-radius: 10px;
-    border: 2px solid #BFBFBF;
+    border: 2px solid #bfbfbf;
     outline: none;
     transition: all 0.3s ease;
 }
@@ -216,7 +222,7 @@ body{
 }
 
 .HDnavbarMember li a:hover {
-    color: #0A369D;
+    color: #0a369d;
 }
 
 .HDnavbarAlarm {
@@ -239,7 +245,7 @@ body{
     padding-top: 20px;
 }
 
-.HDnavbarToggleBtn img{
+.HDnavbarToggleBtn img {
     width: 40px;
     height: 40px;
 }
@@ -247,5 +253,3 @@ body{
 .HDnavbarMenuDetailGuideline {
     border-right: 1px solid black;
 }
-
-
