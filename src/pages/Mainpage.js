@@ -1,37 +1,36 @@
-import React from 'react'
+import React from 'react';
 import '../css/Mainpage.css';
 import { BestProduct } from '../components/Category/BestProduct';
 import Conveyor from '../components/Category/Conveyor';
 import CarouselBanner from '../components/Mainpage/CarouselBanner';
-import {useSelector} from "react-redux";
+import { useSelector } from 'react-redux';
 
 export const Mainpage = () => {
-
-    const nickname = useSelector(state => state.memberSlice.nickname);
+    const nickname = useSelector((state) => state.memberSlice.nickname);
 
     return (
-    <div className='mp'>
-        <div className='mp_container_title'>
-          <h2>실시간경매</h2>
-          <p>현재 진행중인 실시간 경매입니다.</p>
-        </div>
-        <div className='mp_container'>
-            <div className='mp_banner'>
-              <CarouselBanner/>
+        <div className="mp">
+            <div className="mp_container_title">
+                <h2>실시간경매</h2>
+                <p>현재 진행중인 실시간 경매입니다.</p>
             </div>
-            <div className='blank'/>
-            <Conveyor/>
-            <div className='blank'/>
-          <div className='BestItems'>
-            <h2 className='title'>베스트</h2>
-            <p>입찰횟수가 많은 가장 인기 아이템들입니다.</p>
-          </div>
-          <BestProduct/>
-          </div>
-          
-      <div className='blank'/>
-        </div>
-  )
-}
+            <div className="mp_container">
+                <div className="mp_banner">
+                    <CarouselBanner />
+                </div>
+                <div className="blank" />
+                <Conveyor />
+                <div className="blank" />
+                <div className="BestItems">
+                    <h2 className="title">베스트</h2>
+                    <p>입찰횟수가 많은 가장 인기 아이템들입니다.</p>
+                </div>
+                <BestProduct />
+            </div>
 
-export default Mainpage
+            <div className="blank" />
+        </div>
+    );
+};
+
+export default Mainpage;

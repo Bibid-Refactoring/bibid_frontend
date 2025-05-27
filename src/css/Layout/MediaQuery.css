@@ -1,5 +1,4 @@
 @media screen and (max-width: 768px) {
-    
     .navbar {
         width: 100%;
         flex-direction: column;
@@ -96,7 +95,6 @@
 }
 
 @media screen and (max-width: 1200px) {
-
     .HDnavbarMenu li a {
         white-space: wrap;
         font-size: 14px;
@@ -114,17 +112,14 @@
 }
 
 @media screen and (max-width: 1536px) {
-    .HDnavbarMenuDetailFlex {
+    /* .HDnavbarMenuDetailFlex {
         padding-left: 17rem !important;
-    }
+    } */
 
     .HDnavbarMenuDetail {
         padding-left: 18px;
     }
 
-    .HDnavbarMenuDetailBox {
-        top: 7.58rem !important;
-    }
     .HDarrowIcon {
         left: 32rem !important;
     }
@@ -175,7 +170,7 @@
         left: 59.5rem;
         height: 68vh;
     }
-    
+
     .SAauctionInfoTitle h3 {
         font-size: 22px;
     }
@@ -195,7 +190,7 @@
     .SAsellerEvaluationDetail progress {
         margin: 1.38rem 1rem;
     }
-    
+
     .SAproductInfo {
         gap: 20px;
     }
