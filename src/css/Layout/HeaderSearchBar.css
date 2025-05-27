@@ -1,0 +1,55 @@
+.header-search-wrapper{
+    width: 100%;
+}
+
+.header-search-form {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    /* max-width: 360px; */
+    border-radius: 9999px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(87, 87, 87, 0.2);
+    transition: box-shadow 0.3s ease;
+    /* border-radius: 10px; */
+    /* padding: 5px; */
+    /* background-color: white; */
+    /* border: #bfbfbf 2px solid; */
+}
+
+.header-search-form:focus-within {
+  box-shadow: 0 0 0 2px #ebebeb; /* 트렌디한 핑크 포커스 */
+}
+
+.header-search-input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 4px 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+}
+
+.header-search-icon {
+    width: 23px;
+    height: 23px;
+    background-image: url('../../../public/images/search_icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: 8px;
+}
+
+@media (max-width: 770px) {
+    .header-search-wrapper {
+        display: none;
+    }
+
+    .header-search-icon {
+        display: block;
+    }
+}
