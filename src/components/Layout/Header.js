@@ -208,7 +208,7 @@ const Header = () => {
                         <div className="HDnavbarBlank"></div>
                         <div className="HDnavbarMenuDetailFlex">
                             <ul className="HDnavbarMenuDetail">
-                                <li class="title">바로가기</li>
+                                <li className="title">바로가기</li>
                                 <li>
                                     <a href="/specialAuction">실시간경매</a>
                                 </li>
@@ -220,7 +220,7 @@ const Header = () => {
                                 </li>
                             </ul>
                             <ul className="HDnavbarMenuDetail">
-                                <li class="title">분류</li>
+                                <li className="title">분류</li>
                                 <li>
                                     <a href="/category/all">전체보기</a>
                                 </li>

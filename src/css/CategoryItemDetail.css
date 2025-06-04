@@ -512,11 +512,6 @@ ul li {
     margin-bottom: 10px;
 }
 
-p {
-    font-size: 0.9rem;
-    margin: 0;
-    line-height: 1.4; /* 텍스트 간격 조정 */
-}
 /* Modal 공통 스타일 */
 /* 모달 내부 콘텐츠 */
 .CID-seller-modal-content,

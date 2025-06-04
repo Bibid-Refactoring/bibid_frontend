@@ -6,17 +6,12 @@
     display: flex;
     align-items: center;
     height: 100%;
-    /* max-width: 360px; */
     border-radius: 9999px;
     padding: 6px 12px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(87, 87, 87, 0.2);
     transition: box-shadow 0.3s ease;
-    /* border-radius: 10px; */
-    /* padding: 5px; */
-    /* background-color: white; */
-    /* border: #bfbfbf 2px solid; */
 }
 
 .header-search-form:focus-within {

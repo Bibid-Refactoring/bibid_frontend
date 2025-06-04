@@ -1,6 +1,5 @@
 .CB_carousel {
     flex-direction: column;
-    width: 1200px;
     overflow: hidden;
     position: relative;
 }
@@ -18,7 +17,31 @@
     min-width: 100%;
     background-size: cover;
     background-position: center;
-    height: 350px;
+    height: 30rem;
+}
+
+.CB_carousel-control-prev {
+    position: absolute;
+    left: 2rem; /* 슬라이드 하단에서 15px 위 */
+    bottom: 46%;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.CB_carousel-control-next {
+    position: absolute;
+    right: 2rem; /* 슬라이드 하단에서 15px 위 */
+    bottom: 46%;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .CB_carousel-control {
@@ -41,7 +64,7 @@
 }
 
 .CB_carousel-control:hover {
-    background-color: #0A369D;
+    background-color: #0a369d;
 }
 
 .CB_carousel-control img {
@@ -71,7 +94,7 @@
 }
 
 .CB_carousel-toggle:hover {
-    background-color: #0A369D;
+    background-color: #0a369d;
 }
 
 .CB_carousel-pad-container {
@@ -93,14 +116,13 @@
     display: flex;
     justify-content: center;
     flex-direction: row;
-    gap: 5px; 
+    gap: 5px;
 }
 
 .CB_carousel_contents {
     color: white;
     display: flex;
     align-items: center;
-
     justify-content: center;
     flex-direction: column;
     gap: 20px;
@@ -168,5 +190,32 @@
 }
 
 .CB_enter_action-button:hover {
-    background-color: #0A369D;
+    background-color: #0a369d;
+}
+
+/* 하단 점 인디케이터(슬라이드 개수만큼) */
+.CB_carousel-indicators {
+    position: absolute;
+    bottom: 15px; /* 슬라이드 하단에서 15px 위 */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+.CB_carousel-indicator {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.CB_carousel-indicator.active {
+    background-color: #e0e0e0;
+}
+
+/* hover 시 색을 진하게 */
+.CB_carousel-indicator:hover {
+    background-color: rgba(255, 255, 255, 0.8);
 }
