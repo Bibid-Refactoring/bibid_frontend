@@ -29,19 +29,21 @@ function SellerAuctionScreen({
 
     const winnerInfo = auctionDetails[auction.auctionIndex];
 
+    // 🔁 fetchChannelInfo 함수 분리 & 재호출 가능하도록 변경
+    const fetchChannelInfo = async () => {
+        try {
+            const response = await axios.get(
+                `${process.env.REACT_APP_BACK_SERVER}/specialAuction/channelInfo/${auction.auctionIndex}`,
+                { withCredentials: true }
+            );
+            setChannelInfo(response.data);
+        } catch (error) {
+            console.error('스트리밍 정보 가져오기 실패:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchChannelInfo = async () => {
-            try {
-                const response = await axios.get(
-                    `${process.env.REACT_APP_BACK_SERVER}/specialAuction/channelInfo/${auction.auctionIndex}`,
-                    { withCredentials: true }
-                );
-                setChannelInfo(response.data);
-            } catch (error) {
-                console.error('스트리밍 정보 가져오기 실패:', error);
-            }
-        };
-        fetchChannelInfo();
+    fetchChannelInfo();
     }, [auction.auctionIndex]);
 
     const auctionStartTime = new Date(auction.startingLocalDateTime);
@@ -98,6 +100,15 @@ function SellerAuctionScreen({
         });
     };
 
+    // 📌 YouTube videoId 추출 함수 추가
+    const extractVideoId = (url) => {
+        const match = url.match(/v=([a-zA-Z0-9_-]{11})/);
+        return match ? match[1] : null;
+    };
+    
+    const videoId = channelInfo.youtubeWatchUrl ? extractVideoId(channelInfo.youtubeWatchUrl) : null;
+
+    // ✅ 방송 시작 함수 개선: 방송 시작 후 iframe을 갱신하기 위해 채널 정보 재요청
     const startLive = async () => {
         try {
             await axios.post(
@@ -106,6 +117,7 @@ function SellerAuctionScreen({
                 { withCredentials: true }
             );
             setIsLive(true);
+            await fetchChannelInfo(); // iframe 갱신을 위해 최신화
         } catch (error) {
             console.error('경매 시작 실패:', error);
         }
@@ -132,7 +144,7 @@ function SellerAuctionScreen({
                         <h3>{isLive ? "Live On" : "Live Off"}</h3>
                         <h1>판매자</h1>
                         <div className='SAstreamingBttnBox'>
-                            <button onClick={startLive}>경매 시작</button>
+                            <button onClick={isLive ? null : startLive}>경매 시작</button>
                             <button onClick={endLive}>방송 종료</button>
                         </div>
                         {winnerInfo && (
@@ -148,11 +160,11 @@ function SellerAuctionScreen({
                             <div className='SAsellerViewBox'>
                                 <div className="SAsellerAuctionContentBox">
                                     <div className="SAsellerProductSection">
-                                        {isLive ? (
+                                        {isLive && videoId ? (
                                             <iframe
                                                 width="100%"
                                                 height="400"
-                                                src={`https://www.youtube.com/embed/live_stream?channel=UCESM5XE-quGY1u3h_rK82pQ&autoplay=1`}
+                                                src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
                                                 title="YouTube Live"
                                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                 allowFullScreen
