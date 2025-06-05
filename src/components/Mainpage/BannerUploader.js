@@ -1,44 +1,128 @@
-import React, { useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { addBanner } from '../../slices/banner/bannerSlice';
+import '../../css/Main/BannerUploader.css';
+import white_X_icon from '../../images/white_X_icon.svg';
 
 export default function BannerUploader() {
-    const [file, setFile] = useState(null);
-    const CLOUD = process.env.REACT_APP_CLOUDINARY_CLOUD; // 예: "my-cloud-name"
-    const UPLOAD_PRESET = 'banner_preset'; // 방금 만든 언사인드 preset
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const memberRole = useSelector((state) => state.memberSlice.role);
 
-    const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
-    };
+    // 관리자 권한이 아닐 경우 렌더링하지 않음
+    if (memberRole !== 'ROLE_ADMIN') {
+        return null;
+    }
 
-    const handleUpload = async (file) => {
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', UPLOAD_PRESET);
-        
+    const fileInputRef = useRef(null);
 
-        try {
-            const res = await axios.post(
-                `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD}/image/upload`,
-                formData
-            );
-            console.log('Cloudinary upload response:', res.data);
-            // 여기서 res.data.public_id를 반드시 받아서…
-            const publicId = res.data.public_id;
-            dispatch(addBanner(publicId));
-            // → 내 서버(DB)에 저장하거나
-            // → 바로 makeBannerUrl에 넘겨서 배너로 보여주면 됩니다.
-        } catch (err) {
-            console.error('업로드 실패:', err.response?.data);
+    const [selectedFiles, setSelectedFiles] = useState([]); // Array<File>
+    const [previews, setPreviews] = useState([]); // Array<{ file: File; previewUrl: string }>
+
+    const UPLOAD_PRESET = 'banner_preset';
+    const CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD;
+
+    // 파일 선택창 열리는 역할을 하는 버튼 클릭 핸들러
+    const handleClickSelect = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
         }
     };
 
+    // 파일 선택 핸들러
+    const handleFileChange = (e) => {
+        const files = Array.from(e.target.files);
+        setSelectedFiles(files);
+    };
+
+    // selectedFiles가 바뀔 때마다 미리보기 URL 생성/해제
+    useEffect(() => {
+        // 이전에 생성한 URL 해제
+        previews.forEach((p) => URL.revokeObjectURL(p.previewUrl));
+
+        // 새롭게 미리보기 URL 생성
+        const nextPreviews = selectedFiles.map((file) => ({
+            file,
+            previewUrl: URL.createObjectURL(file),
+        }));
+        setPreviews(nextPreviews);
+
+        return () => {
+            nextPreviews.forEach((p) => URL.revokeObjectURL(p.previewUrl));
+        };
+    }, [selectedFiles]);
+
+    // 개별 미리보기 제거
+    const handleRemovePreview = (fileToRemove) => {
+        setSelectedFiles((prev) => prev.filter((file) => file !== fileToRemove));
+    };
+
+    // 모든 선택된 이미지를 Cloudinary에 업로드
+    const handleUploadAll = async () => {
+        if (selectedFiles.length === 0) {
+            alert('업로드할 이미지를 하나 이상 선택해주세요.');
+            return;
+        }
+
+        for (const file of selectedFiles) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', UPLOAD_PRESET);
+
+            try {
+                const res = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, formData);
+                const publicId = res.data.public_id;
+                dispatch(addBanner(publicId));
+            } catch (err) {
+                console.error('업로드 실패:', err.response?.data || err.message);
+                alert(`"${file.name}" 업로드에 실패했습니다.`);
+            }
+        }
+
+        setSelectedFiles([]);
+        setPreviews([]);
+        alert('선택된 모든 이미지를 업로드했습니다.');
+    };
+
     return (
-        <div>
-            <input type="file" accept="image/*" onChange={handleFileChange} />
-            <button onClick={() => handleUpload(file)}>배너 업로드</button>
+        <div className="banner-uploader">
+            <h2 className="banner-uploader__title">관리자용 배너 업로드</h2>
+
+            <input
+                id="bannerFileInput"
+                type="file"
+                accept="image/*"
+                multiple
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                className="banner-uploader__file-input"
+            />
+
+            <button type="button" className="banner-uploader__select-button" onClick={handleClickSelect}>
+                파일 선택
+            </button>
+            <p className="banner-uploader__note">여러 개의 이미지를 선택할 수 있습니다.</p>
+
+            {previews.length > 0 && (
+                <div className="banner-uploader__preview-container">
+                    {previews.map(({ file, previewUrl }) => (
+                        <div key={previewUrl} className="banner-uploader__preview-item">
+                            <img src={previewUrl} alt={file.name} className="banner-uploader__preview-image" />
+                            <button
+                                onClick={() => handleRemovePreview(file)}
+                                className="banner-uploader__remove-button"
+                                title="이 이미지 제거"
+                            >
+                                <img src={white_X_icon} />
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            <button onClick={handleUploadAll} className="banner-uploader__upload-button">
+                선택된 배너 모두 업로드
+            </button>
         </div>
     );
 }

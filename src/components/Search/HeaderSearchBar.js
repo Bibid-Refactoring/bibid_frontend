@@ -24,26 +24,50 @@ const HeaderSearchBar = (showDetailBox) => {
         [dispatch]
     );
 
-    const toggleSearchBar = () => {
-        setIsSearchOpen((prev) => !prev);
-    };
+    // const toggleSearchBar = () => {
+    //     setIsSearchOpen((prev) => !prev);
+    // };
 
+    // const handleSearch = useCallback(
+    //     (e) => {
+    //         e.preventDefault();
+
+    //         if (searchKeyword === '') {
+    //             alert('검색어를 입력해주세요');
+    //         } else {
+    //             // 로컬 스토리지에 검색 조건과 키워드 저장
+    //             localStorage.setItem('searchCondition', searchCondition);
+    //             localStorage.setItem('searchKeyword', searchKeyword);
+
+    //             // /search로 이동
+    //             window.location.href = '/search';
+    //         }
+    //     },
+    //     [dispatch, searchCondition, searchKeyword, navigate]
+    // );
+
+    // 실제 검색 로직: 키워드 검사 → 로컬스토리지 저장 → 이동
+    const performSearch = useCallback(() => {
+        if (searchKeyword.trim() === '') {
+            alert('검색어를 입력해주세요');
+            return;
+        }
+        // 저장
+        localStorage.setItem('searchCondition', searchCondition);
+        localStorage.setItem('searchKeyword', searchKeyword);
+
+        navigate('/search');
+        // 또는: window.location.href = '/search';
+        
+    }, [dispatch, navigate, searchCondition, searchKeyword]);
+
+    // 폼 제출 시: preventDefault 후 performSearch 호출
     const handleSearch = useCallback(
         (e) => {
             e.preventDefault();
-
-            if (searchKeyword === '') {
-                alert('검색어를 입력해주세요');
-            } else {
-                // 로컬 스토리지에 검색 조건과 키워드 저장
-                localStorage.setItem('searchCondition', searchCondition);
-                localStorage.setItem('searchKeyword', searchKeyword);
-
-                // /search로 이동
-                window.location.href = '/search';
-            }
+            performSearch();
         },
-        [dispatch, searchCondition, searchKeyword, navigate]
+        [performSearch]
     );
 
     return (
@@ -57,7 +81,7 @@ const HeaderSearchBar = (showDetailBox) => {
                     placeholder="검색어를 입력하세요"
                     className="header-search-input"
                 />
-                <div className="header-search-icon" onClick={() => setIsOpen((prev) => !prev)}></div>
+                <div className="header-search-icon" onClick={performSearch}></div>
             </form>
         </div>
     );
