@@ -38,7 +38,8 @@ const memberSlice = createSlice({
         memberPnum: '',
         checkLoginState: false,
         profileImageDto: '',
-        accountDto:''
+        accountDto:'',
+        role:'',
     },
     reducers: {},
     extraReducers: (builder) => {
