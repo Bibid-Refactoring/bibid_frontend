@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { styled, Container, Select, MenuItem, Button, Typography, Grid2} from '@mui/material';
 
 const StyledMenuProps = {
@@ -36,8 +37,38 @@ const StyledMenuProps = {
   };
 
 const RegistrationStep1 = ({ formData, setFormData, nextStep}) => {
-  
+  const oauthType = useSelector((state) => state.memberSlice.oauthType); // redux에서 로그인된 사용자 플랫폼 확인  
+  const handleAuctionTypeChange = async (e) => {
+  const selected = e.target.value;
 
+  if (selected === "실시간 경매") {
+    if (oauthType !== "Google") {
+      const confirmed = window.confirm(
+          "실시간 경매는 Google 계정 연동이 필요합니다.\n지금 연동하시겠습니까?"
+      );
+
+      if (confirmed) {
+        const google_api_key = process.env.REACT_APP_GOOGLE_API_KEY;
+        const google_redirect_uri = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
+        const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?` +
+          `client_id=${google_api_key}` +
+          `&redirect_uri=${google_redirect_uri}` +
+          `&response_type=token&` +
+          `scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`;
+
+        window.location.href = googleURL;
+        return;
+      } else {
+        // 경매 종류 선택 취소
+        return;
+      }
+    }
+  }
+
+    // 통과된 경우만 상태 업데이트
+    setFormData({ ...formData, auctionType: selected });
+  };
+  
     const handleSubmit = (e) => {
       e.preventDefault();
       nextStep();
@@ -80,7 +111,7 @@ const RegistrationStep1 = ({ formData, setFormData, nextStep}) => {
 
             <Select
               value={formData.auctionType}
-              onChange={(e) => setFormData({ ...formData, auctionType: e.target.value })}
+              onChange={handleAuctionTypeChange}
               displayEmpty
               // anchorEl={anchorEl}
               MenuProps={{

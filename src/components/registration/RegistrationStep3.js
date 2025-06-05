@@ -9,25 +9,17 @@ const RegistrationStep3 = ({ formData, setFormData, nextStep, prevStep, memberIn
   const handleSubmit = (e) => {
     e.preventDefault();
 
-
     console.log("nickname RegistrationStep3:" + nickname);
 
-    // 확인 메시지 표시
     const userConfirmed = window.confirm("현재까지의 정보로 물품이 등록됩니다. 괜찮으시겠습니까?");
     
-    // 사용자가 확인을 눌렀을 때만 폼 전송
     if (userConfirmed) {
-      // FormData 생성 후 서버로 전송 준비
       const formDataToSend = new FormData();
-
       const { shippingMethod, costResponsibility, ...remainingData } = formData;
 
-      formDataToSend.append('auctionDetailDto', new Blob([JSON.stringify({ shippingMethod, costResponsibility})], { type: 'application/json' }));
-      
-      // JSON 데이터 추가
+      formDataToSend.append('auctionDetailDto', new Blob([JSON.stringify({ shippingMethod, costResponsibility })], { type: 'application/json' }));
       formDataToSend.append('auctionDto', new Blob([JSON.stringify(remainingData)], { type: 'application/json' }));
-      
-      // 이미지 파일 추가
+
       if (formData.thumbnail) {
         formDataToSend.append('thumbnail', formData.thumbnail);
       }
@@ -35,21 +27,37 @@ const RegistrationStep3 = ({ formData, setFormData, nextStep, prevStep, memberIn
       formData.additionalImages.forEach((file) => {
         formDataToSend.append('additionalImages', file);
       });
-      
-      // 서버로 FormData 전송 (예: axios 사용)
+
       axios.post(`${process.env.REACT_APP_BACK_SERVER}/auction/post`, formDataToSend, {
         withCredentials: true
       })
       .then(response => {
         console.log(response);
-        nextStep(); // 성공하면 다음 스텝으로 이동
+
+        // 실시간 경매일 경우에만 방송 생성 API 호출
+        if (formData.auctionType === '실시간 경매') {
+          const auctionIndex = response.data.item?.auctionIndex;
+
+          axios.post(`${process.env.REACT_APP_BACK_SERVER}/specialAuction/createLive/${auctionIndex}`, null, {
+            withCredentials: true
+          })
+          .then(() => {
+            console.log('방송 생성 완료');
+            nextStep();
+          })
+          .catch(err => {
+            console.error('방송 생성 실패:', err);
+            alert('방송 생성에 실패했습니다. 관리자에게 문의해주세요.');
+            nextStep();
+          });
+        } else {
+          nextStep();
+        }
       })
       .catch(error => {
         console.error(error);
       });
     }
-
-    nextStep();
   };
 
   return (
