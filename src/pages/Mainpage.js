@@ -1,22 +1,25 @@
-import React from 'react';
-import '../css/Mainpage.css';
+import React, {useState} from 'react';
+import '../css/Main/Mainpage.css';
 import { BestProduct } from '../components/Category/BestProduct';
 import Conveyor from '../components/Category/Conveyor';
 import CarouselBanner from '../components/Mainpage/CarouselBanner';
 import { useSelector } from 'react-redux';
+import BannerUploader from '../components/Mainpage/BannerUploader';
 
 export const Mainpage = () => {
+
     const nickname = useSelector((state) => state.memberSlice.nickname);
 
     return (
         <div className="mp">
-            <div className="mp_container_title">
+            {/* <div className="mp_container_title">
                 <h2>실시간경매</h2>
                 <p>현재 진행중인 실시간 경매입니다.</p>
-            </div>
+            </div> */}
             <div className="mp_container">
                 <div className="mp_banner">
                     <CarouselBanner />
+                    <BannerUploader />
                 </div>
                 <div className="blank" />
                 <Conveyor />

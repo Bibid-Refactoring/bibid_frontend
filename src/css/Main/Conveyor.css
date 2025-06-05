@@ -1,0 +1,46 @@
+/* Conveyor.css */
+
+.Conveyor__view {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* View의 경계를 넘어가는 것은 숨김 */
+}
+
+.Conveyor__slide {
+    display: flex;
+    position: relative;
+    width: calc(165px * 20); /* (original + clone)의 너비 */
+    animation: autoPlay 15s linear infinite;
+}
+
+.Conveyor__slide.paused {
+    animation-play-state: paused;
+}
+
+.Conveyor__slide.running {
+    animation-play-state: running;
+}
+
+@keyframes autoPlay {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-165px * 10)); /* original의 너비만큼 이동 */
+    }
+}
+
+.Conveyor__slide > li {
+    width: 165px;
+    height: 165px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px #bfbfbf;
+    color: black;
+    font-size: 24px;
+    list-style-type: none;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}

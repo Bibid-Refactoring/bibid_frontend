@@ -1,0 +1,40 @@
+.mp {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mp_container {
+    width: 100%;
+    padding: 0 20px;
+}
+
+.mp_banner {
+    display: flex;
+    flex-direction: column;
+    position: relative; /* 내부에서 translateX를 쓸 수 있게 기준 설정 */
+    width: 100vw; /* 뷰포트 전체 너비 */
+    left: 50%; /* 부모(.mp_container) 기준 가로 50%로 이동 */
+    transform: translateX(-50%);
+}
+
+.mp_container_title {
+    width: 100%;
+    padding: 0 20px;
+    margin-top: 100px;
+}
+
+.mp_container_title p {
+    color: #555555;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 1em;
+}
+
+.BestItems p {
+    color: #555555;
+    font-size: 16px;
+    font-weight: 600;
+}

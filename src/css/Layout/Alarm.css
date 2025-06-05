@@ -1,9 +1,3 @@
-@media (max-width: 1000px) {
-  .HDnavbarAlarm {
-    padding-left: 20px;
-  }
-}
-
 .ALnotificationBox {
   position: absolute;
   top: 6rem;

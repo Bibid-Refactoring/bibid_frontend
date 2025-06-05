@@ -8,7 +8,7 @@
 .CTG_searchInfo_box {
     width: 1000px;
     height: 100px;
-    background-color: #D9D9D9;
+    background-color: #d9d9d9;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,21 +50,20 @@
     justify-content: flex-start;
 }
 
-.CTG_stick {    
+.CTG_stick {
     margin-left: 10px;
     margin-right: 10px;
     width: 2px;
     height: 250px;
-    border-right: solid 2px #BFBFBF;
-
+    border-right: solid 2px #bfbfbf;
 }
 
 .CTG_grid-item1 {
     display: flex;
-    align-items: center; 
-    justify-content: center; 
+    align-items: center;
+    justify-content: center;
     justify-items: center;
-    height: 120px; 
+    height: 120px;
     flex-direction: column;
 }
 
@@ -73,7 +72,7 @@
     width: 500px;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 10px; 
+    gap: 10px;
 }
 
 .CTG_grid-item {
@@ -99,7 +98,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: black; 
+    color: black;
     height: 100%;
     cursor: pointer;
 }
@@ -134,62 +133,90 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 1200px;
-    height: 400px;
 }
 
 .CTG_grid-container-best {
     display: grid;
     width: 100%;
     height: 100%;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     grid-template-rows: repeat(2, 1fr);
     gap: 10px;
 }
 
-@media (max-width: 1200px) {
-    .CTG_grid-container-best {
-        width: 800px;
-        height: 500px;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-    }
-
-    .CTG_BestItems {
-        width: 800px;
-        height: 100px;
-    }
-}
-
 .CTG_grid-item-best {
-    border: solid 1px #BFBFBF;
-    border-radius: 5px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    width: 393px;
-    height: 197px;
     cursor: pointer;
 }
 
-.CTG_grid-img {
-    object-fit: contain;
-    width: 393px;
-    height: 100%;
+.CTG_grid-img-box {
+    border: 1px solid rgba(87, 87, 87, 0.2);
     border-radius: 5px;
+    position: relative;
+    overflow: hidden;
 }
 
-.CTG_grid-container-hob, .CTG_grid-container-clothing, .CTG_grid-container-elec {
+.CTG_grid-img-box:hover img {
+    transform: scale(1.1);
+}
+
+.CTG_grid-img {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover; /* or 'contain' depending on your goal */
+    border-radius: 4px;
+    display: block;
+    transition: all 0.3s ease-in-out;
+}
+
+.CTG_product-info {
+    max-width: 15rem;
+    flex: 1 1 auto; /* 이미지 아래 남은 공간을 채움 */
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.25rem;
+    background: #fff;
+}
+
+/* 5. 제목 말줄임: 한 줄만 보이게 */
+.CTG_product-name {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 6. 가격/카테고리도 고정된 크기로 */
+.CTG_product-price,
+.CTG_product-category {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+    flex-shrink: 0; /* 정보 영역 축소 방지 */
+}
+
+.CTG_grid-container-hob,
+.CTG_grid-container-clothing,
+.CTG_grid-container-elec {
     display: grid;
     width: 1200px;
     height: 232px;
-    grid-template-columns: repeat(5, 1fr); 
-    grid-template-rows: repeat(1, 1fr);  
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
     gap: 10px;
 }
 
-.CTG_grid-item-hob, .CTG_grid-item-clothing, .CTG_grid-item-elec {
-    border: solid 1px #BFBFBF;
+.CTG_grid-item-hob,
+.CTG_grid-item-clothing,
+.CTG_grid-item-elec {
+    border: solid 1px #bfbfbf;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -199,7 +226,9 @@
     height: 232px;
 }
 
-.CTG_grid-img-hob, .CTG_grid-img-clothing, .CTG_grid-img-elec {
+.CTG_grid-img-hob,
+.CTG_grid-img-clothing,
+.CTG_grid-img-elec {
     object-fit: contain;
     width: 230px;
     height: 230px;
@@ -215,13 +244,13 @@
     display: grid;
     width: 1200px;
     height: auto;
-    grid-template-columns: repeat(5, 1fr); 
-    grid-template-rows: repeat(1, 1fr);  
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, 1fr);
     gap: 10px;
 }
 
 .CTG_grid-item-product {
-    border: solid 1px #BFBFBF;
+    border: solid 1px #bfbfbf;
     display: flex;
     border-radius: 5px;
     align-items: center;
@@ -253,7 +282,7 @@
     overflow: hidden; /* Hide overflow text */
     white-space: nowrap; /* Prevent text from wrapping */
     text-overflow: ellipsis; /* Show ellipsis (...) when text is truncated */
-  }
+}
 
 .CV_header p {
     color: #555555;
@@ -285,7 +314,7 @@
 }
 
 .SB_Button:hover {
-    background-color: #0A369D !important;
+    background-color: #0a369d !important;
     color: white !important;
 }
 
@@ -297,7 +326,7 @@
 }
 
 .SB_searchCondition {
-    border: 2px solid #BFBFBF;
+    border: 2px solid #bfbfbf;
     border-radius: 5px;
 }
 
@@ -358,4 +387,16 @@
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 5px;
+}
+
+@media (max-width: 1000px) {
+    .CTG_grid-container-best {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 770px) {
+    .CTG_grid-container-best {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
