@@ -8,7 +8,7 @@ const notificationSlice = createSlice({
     reducers: {
         setNotifications: (state, action) => {
 
-            console.log(action.payload);
+            // console.log(action.payload);
 
             state.notifications = action.payload.map(notification => notification.alertContent);
         },

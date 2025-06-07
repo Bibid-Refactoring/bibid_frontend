@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../css/CarouselBanner.css';
+import { fetchBanners } from '../../slices/banner/bannerSlice';
 import { getAuctionData } from '../../apis/SpecialAuction/SAapis';
 import { useSelector, useDispatch } from 'react-redux';
 import { formatDateTime, formatAuctionTimeRange } from '../../util/utils';
@@ -19,27 +20,28 @@ const CarouselBanner = () => {
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [isPlaying, setIsPlaying] = useState(true);
 
-    const bannerPublicIds = useSelector((state) => state.banners);
+    const bannerItems = useSelector((state) => state.banners.items);
+    const bannerPublicIds = bannerItems.map((b) => b.publicId);
 
-    // 1) 실시간 경매 데이터 fetch
+    // 1) 실시간 경매 데이터, 배너 fetch
     useEffect(() => {
         dispatch(getAuctionData('realtime'));
-    }, [dispatch]);
+        dispatch(fetchBanners());
+    }, []);
 
+    // 2) useState로 배너 상태 관리
     useEffect(() => {
-        // 1) 리덕스에 업로드된 배너(publicIds)가 하나라도 있으면,
-        //    그걸 우선 사용하도록 data를 구성
-        console.log('bannerPublicIds: ' + bannerPublicIds);
-        if (Array.isArray(bannerPublicIds) && bannerPublicIds.length > 0) {
-            const data = bannerPublicIds.map((pid) => ({
-                url: makeBannerUrl({ publicIds: [pid] }),
-                title: '', // (별도 텍스트 오버레이 없음—이미지 안에 직접 들어 있음)
-                auctionDate: '', // (배너 안 디자인에 날짜가 이미 들어 있다고 가정)
+        if (bannerItems.length > 0) {
+            const data = bannerItems.map((b) => ({
+                url: makeBannerUrl({ publicIds: [b.publicId] }),
+                linkUrl: b.linkUrl,
+                title: '',
+                auctionDate: '',
                 auctionTime: '',
             }));
             setCarouselData(data);
         }
-    }, [bannerPublicIds]);
+    }, [bannerItems]);
 
     // 3) 자동 슬라이드
     useEffect(() => {
@@ -64,10 +66,10 @@ const CarouselBanner = () => {
         setCurrentIndex(idx);
     };
 
-    const togglePlayPause = () => setIsPlaying((p) => !p);
+    // const togglePlayPause = () => setIsPlaying((p) => !p);
 
-    const currentSlideNumber = carouselData.length ? currentIndex + 1 : 0;
-    const handleSAGoButtonClick = () => navigate('/SpecialAuction');
+    // const currentSlideNumber = carouselData.length ? currentIndex + 1 : 0;
+    // const handleSAGoButtonClick = () => navigate('/SpecialAuction');
 
     if (!Array.isArray(bannerPublicIds) || bannerPublicIds.length === 0) {
         return (
@@ -93,7 +95,7 @@ const CarouselBanner = () => {
                         }}
                     >
                         {carouselData.map((carousel, index) => (
-                            <div key={index} className="CB_carousel-item">
+                            <div key={index} className="CB_carousel-item" onClick={() => navigate(carousel.linkUrl)}>
                                 <img
                                     src={carousel.url}
                                     alt={`Carousel ${index}`}

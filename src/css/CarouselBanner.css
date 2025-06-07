@@ -18,12 +18,13 @@
     background-size: cover;
     background-position: center;
     height: 30rem;
+    cursor: pointer;
 }
 
 .CB_carousel-control-prev {
     position: absolute;
     left: 2rem; /* 슬라이드 하단에서 15px 위 */
-    bottom: 46%;
+    bottom: 42%;
     display: flex;
     gap: 8px;
     z-index: 10;
@@ -35,7 +36,7 @@
 .CB_carousel-control-next {
     position: absolute;
     right: 2rem; /* 슬라이드 하단에서 15px 위 */
-    bottom: 46%;
+    bottom: 42%;
     display: flex;
     gap: 8px;
     z-index: 10;
