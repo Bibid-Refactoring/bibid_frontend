@@ -1,7 +1,7 @@
 .ALnotificationBox {
   position: absolute;
-  top: 6rem;
-  right: 19rem;
+  top: 50px;
+  right: 0;
   width: auto;
   background-color: white;
   border-radius: 8px;
@@ -26,6 +26,7 @@
 .ALnotificationContents {
   background-color: #EEEEEE;
   padding: 1rem;
+  border-radius: 8px;
 }
 
 .ALnotificationTabs {

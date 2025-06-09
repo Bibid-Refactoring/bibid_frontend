@@ -295,6 +295,10 @@ body {
     color: #000;
 }
 
+.HDnavbarAlarmWrapper{
+    position: relative;
+}
+
 .HDnavbarAlarm {
     display: flex;
     justify-content: center;

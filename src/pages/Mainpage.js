@@ -18,7 +18,7 @@ export const Mainpage = () => {
             <div className="mp_container">
                 <div className="mp_banner">
                     <CarouselBanner />
-                    <div className="blank" />
+                    
                     <BannerUploader />
                 </div>
                 <div className="blank" />

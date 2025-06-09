@@ -96,56 +96,59 @@ export default function BannerUploader() {
     };
 
     return (
-        <div className="banner-uploader">
-            <h2 className="banner-uploader__title">관리자용 배너 업로드</h2>
+        <>
+            <div className="blank" />
+            <div className="banner-uploader">
+                <h2 className="banner-uploader__title">관리자용 배너 업로드</h2>
 
-            <input
-                id="bannerFileInput"
-                type="file"
-                accept="image/*"
-                multiple
-                ref={fileInputRef}
-                onChange={handleFileChange}
-                className="banner-uploader__file-input"
-            />
-
-            <button type="button" className="banner-uploader__select-button" onClick={handleClickSelect}>
-                파일 선택
-            </button>
-            <p className="banner-uploader__note">여러 개의 이미지를 선택할 수 있습니다.</p>
-
-            {previews.length > 0 && (
-                <div className="banner-uploader__preview-container">
-                    {previews.map(({ file, previewUrl }) => (
-                        <div key={previewUrl} className="banner-uploader__preview-item">
-                            <img src={previewUrl} alt={file.name} className="banner-uploader__preview-image" />
-                            <button
-                                onClick={() => handleRemovePreview(file)}
-                                className="banner-uploader__remove-button"
-                                title="이 이미지 제거"
-                            >
-                                <img src={white_X_icon} />
-                            </button>
-                        </div>
-                    ))}
-                </div>
-            )}
-
-            <label htmlFor='auctionNumber' className='auction-label'>
-                경매 번호:
                 <input
-                    id='auctionNumber'
-                    type="number"
-                    value={auctionNumber}
-                    onChange={(e) => setAuctionNumber(e.target.value)}
-                    placeholder="예) 21"
-                    className='auction-input'
+                    id="bannerFileInput"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    className="banner-uploader__file-input"
                 />
-            </label>
 
-            <button onClick={handleUploadAll} className="banner-uploader__upload-button">
-                선택된 배너 모두 업로드
-            </button>
-        </div>
+                <button type="button" className="banner-uploader__select-button" onClick={handleClickSelect}>
+                    파일 선택
+                </button>
+                <p className="banner-uploader__note">여러 개의 이미지를 선택할 수 있습니다.</p>
+
+                {previews.length > 0 && (
+                    <div className="banner-uploader__preview-container">
+                        {previews.map(({ file, previewUrl }) => (
+                            <div key={previewUrl} className="banner-uploader__preview-item">
+                                <img src={previewUrl} alt={file.name} className="banner-uploader__preview-image" />
+                                <button
+                                    onClick={() => handleRemovePreview(file)}
+                                    className="banner-uploader__remove-button"
+                                    title="이 이미지 제거"
+                                >
+                                    <img src={white_X_icon} />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                <label htmlFor="auctionNumber" className="auction-label">
+                    경매 번호:
+                    <input
+                        id="auctionNumber"
+                        type="number"
+                        value={auctionNumber}
+                        onChange={(e) => setAuctionNumber(e.target.value)}
+                        placeholder="예) 21"
+                        className="auction-input"
+                    />
+                </label>
+
+                <button onClick={handleUploadAll} className="banner-uploader__upload-button">
+                    선택된 배너 모두 업로드
+                </button>
+            </div>
+        </>
     );
 }
