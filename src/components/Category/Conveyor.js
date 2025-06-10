@@ -42,6 +42,7 @@ function Conveyor() {
         slidesToScroll: 1, // 한 칸씩 이동
         variableWidth: false, // 고정된 개수(slidesToShow) 기준
         arrows: true, // 화살표 표시
+        dots: true,
         autoplay: true, // 자동 재생 켬
         autoplaySpeed: 3000, // 3초 간격
         pauseOnHover: true, // 마우스 올리면 멈춤
@@ -100,6 +101,11 @@ function Conveyor() {
                             onClick={() => handleItemClick(auction.auctionIndex)}
                         >
                             <img className="Conveyor__slide_img" src={imageSrc} alt={auction.productName} />
+                            <div className="Conveyor__slide_content">
+                                <h3 className="title">{auction.productName}</h3>
+                                <p className="price">{auction.currentPrice}원</p>
+                                <p className="time">{auction.remainingTime}</p>
+                            </div>
                         </div>
                     );
                 })}
