@@ -1,6 +1,6 @@
 // src/slices/banner/bannerSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchBannersAPI, createBannerAPI, updateBannerAPI, deleteBannerAPI } from '../../apis/main_banner/bannerApis';
+import { fetchBannersAPI, createBannerAPI, updateBannerAPI, deleteBannerAPI } from '../../apis/main/bannerApis';
 
 // 1) fetchBanners: ResponseDto 에서 itemList (배너 리스트)만 꺼내서 반환
 export const fetchBanners = createAsyncThunk('banners/fetchAll', async (_, thunkAPI) => {

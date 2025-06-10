@@ -67,14 +67,6 @@ const Header = () => {
         setShowDetailBox(false);
     };
 
-    const handleMouseOverCate = (e) => {
-        document.querySelector('.HDarrowIcon').style.opacity = '1';
-    };
-
-    const handleMouseLeaveCate = (e) => {
-        document.querySelector('.HDarrowIcon').style.opacity = '0';
-    };
-
     const handleMouseOverWallet = () => {
         setShowWalletPopup(true);
     };

@@ -9,6 +9,8 @@ import leftArrow from '../../images/white_left_arrow_icon.svg';
 import rightArrow from '../../images/white_right_arrow_icon.svg';
 import { makeBannerUrl } from '../../util/cloudinary';
 import MainBannerDefault from '../../images/MainBannerDefault.png';
+import { ReactComponent as LeftArrowIcon } from '../../images/white_left_arrow_icon.svg';
+import { ReactComponent as RightArrowIcon } from '../../images/white_right_arrow_icon.svg';
 
 const CarouselBanner = () => {
     // const bucketName = process.env.REACT_APP_BUCKET_NAME;
@@ -106,10 +108,10 @@ const CarouselBanner = () => {
                     </div>
 
                     <button className="CB_carousel-control-prev" onClick={prevSlide}>
-                        <img src={leftArrow}></img>
+                        <LeftArrowIcon className="CB_carousel-control-prev-img"/>
                     </button>
                     <button className="CB_carousel-control-next" onClick={nextSlide}>
-                        <img src={rightArrow}></img>
+                        <RightArrowIcon className="CB_carousel-control-next-img"/>
                     </button>
 
                     <div className="CB_carousel-indicators">
@@ -123,34 +125,6 @@ const CarouselBanner = () => {
                         ))}
                     </div>
 
-                    {/* <div className="CB_carousel-pad-container">
-                        <div className="CB_carousel-pad1">
-                            <button className="CB_carousel-num">
-                                {currentSlideNumber} / {carouselData.length}
-                            </button>
-                            <button className="CB_carousel-control prev" onClick={prevSlide}>
-                                <img src={leftArrow}></img>
-                            </button>
-                            <button className="CB_carousel-control next" onClick={nextSlide}>
-                                <img src={rightArrow}></img>
-                            </button>
-                            <button className="CB_carousel-toggle" onClick={togglePlayPause}>
-                                <img
-                                    src={`/images/${isPlaying ? 'stop_icon.svg' : 'play_icon.svg'}`}
-                                    alt={isPlaying ? 'Pause' : 'Play'}
-                                    style={{ width: '15px', height: '15px' }}
-                                />
-                            </button>
-                        </div>
-                        <div className="CB_carousel_contents">
-                            <h2 className="CB_carousel_h">{carouselData[currentIndex].title}</h2>
-                            <p>{carouselData[currentIndex].auctionDate}</p>
-                            <p>{carouselData[currentIndex].auctionTime}</p>
-                            <button className="CB_enter_action-button" onClick={handleSAGoButtonClick}>
-                                바로가기
-                            </button>
-                        </div>
-                    </div> */}
                 </>
             )}
         </div>

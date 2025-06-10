@@ -9,11 +9,6 @@ export default function BannerUploader() {
     const dispatch = useDispatch();
     const memberRole = useSelector((state) => state.memberSlice.role);
 
-    // 관리자 권한이 아닐 경우 렌더링하지 않음
-    if (memberRole !== 'ROLE_ADMIN') {
-        return null;
-    }
-
     const fileInputRef = useRef(null);
 
     const [selectedFiles, setSelectedFiles] = useState([]); // Array<File>
@@ -94,6 +89,11 @@ export default function BannerUploader() {
         setPreviews([]);
         alert('선택된 모든 이미지를 업로드했습니다.');
     };
+
+    // 관리자 권한이 아닐 경우 렌더링하지 않음
+    if (memberRole !== 'ROLE_ADMIN') {
+        return null;
+    }
 
     return (
         <>

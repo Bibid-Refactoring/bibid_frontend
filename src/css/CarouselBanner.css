@@ -33,6 +33,10 @@
     cursor: pointer;
 }
 
+.CB_carousel-control-prev-img {
+    color: #303030;
+}
+
 .CB_carousel-control-next {
     position: absolute;
     right: 2rem; /* 슬라이드 하단에서 15px 위 */
@@ -43,6 +47,10 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.CB_carousel-control-next-img {
+    color: #303030;
 }
 
 .CB_carousel-control {
