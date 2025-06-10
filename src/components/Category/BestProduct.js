@@ -22,7 +22,6 @@ export const BestProduct = () => {
                     throw new Error('데이터를 가져오는 데 실패했습니다.');
                 }
                 const data = response.data;
-                console.log(data);
 
                 const items = data.pageItems.content || [];
                 // content가 배열이니 items.forEach 사용
@@ -47,7 +46,6 @@ export const BestProduct = () => {
     // 2) 최신 bestProducts를 ref에 동기화
     useEffect(() => {
         productsRef.current = bestProducts;
-        console.log('📦 bestProducts 업데이트됨:', bestProducts);
     }, [bestProducts]);
 
     // 3) 한 번만 인터벌 등록 → 최신 ref를 읽어서 이미지 교체

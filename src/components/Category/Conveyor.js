@@ -3,6 +3,12 @@ import '../../css/Main/Conveyor.css'; // 이 파일을 추가했다고 가정
 import axios from 'axios';
 import defaultFileImg from '../../images/defaultFileImg.png';
 
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+// console.log('Slider is', Slider);
+
 const bucketName = process.env.REACT_APP_BUCKET_NAME;
 
 const handleItemClick = (auctionIndex) => {
@@ -29,13 +35,27 @@ function Conveyor() {
         fetchBestProducts();
     }, []);
 
+    // Slider 설정: 한 번에 보여줄 개수, 자동재생, 반응형 등
+    const settings = {
+        infinite: false, // 끝까지 가면 멈추기
+        slidesToShow: 3, // 한 화면에 3장
+        slidesToScroll: 1, // 한 칸씩 이동
+        variableWidth: false, // 고정된 개수(slidesToShow) 기준
+        arrows: true, // 화살표 표시
+        dots: true,
+        autoplay: true, // 자동 재생 켬
+        autoplaySpeed: 3000, // 3초 간격
+        pauseOnHover: true, // 마우스 올리면 멈춤
+        // centerMode: false,     // 중간 정렬 끄기 (기본값)
+    };
+
     return (
         <div className="Conveyor__view">
             <div className="CV_header">
                 <h2>마감임박 경매</h2>
                 <p>경매 종료까지 시간이 얼마 남지 않은 경매입니다.</p>
             </div>
-            <ul
+            {/* <ul
                 className={`Conveyor__slide ${isPaused ? 'paused' : 'running'}`}
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
@@ -59,7 +79,37 @@ function Conveyor() {
                         </li>
                     );
                 })}
-            </ul>
+            </ul> */}
+
+            <Slider
+                {...settings}
+                className="Conveyor__slide"
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+            >
+                {bestProducts.map((auction) => {
+                    const thumbnailImage = auction.auctionImageDtoList.find((i) => i.thumbnail);
+                    const imageSrc =
+                        thumbnailImage && thumbnailImage.filetype === 'image'
+                            ? `https://pub-545575e178394a0e85ed3d8f1bcaa827.r2.dev/${thumbnailImage.filepath}${thumbnailImage.filename}`
+                            : defaultFileImg;
+
+                    return (
+                        <div
+                            className="Conveyor__slide_imgBox"
+                            key={auction.auctionIndex}
+                            onClick={() => handleItemClick(auction.auctionIndex)}
+                        >
+                            <img className="Conveyor__slide_img" src={imageSrc} alt={auction.productName} />
+                            <div className="Conveyor__slide_content">
+                                <h3 className="title">{auction.productName}</h3>
+                                <p className="price">{auction.currentPrice}원</p>
+                                <p className="time">{auction.remainingTime}</p>
+                            </div>
+                        </div>
+                    );
+                })}
+            </Slider>
         </div>
     );
 }

@@ -27,7 +27,7 @@
 /* 이미지 박스 */
 .CTG_grid-img-box {
     overflow: hidden;
-    border: 1px solid rgba(87, 87, 87, 0.2);
+    /* border: 1px solid rgba(87, 87, 87, 0.2); */
     border-radius: 5px;
     position: relative;
 }

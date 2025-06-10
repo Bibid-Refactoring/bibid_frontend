@@ -1,15 +1,15 @@
 /* Conveyor.css */
-
+/* 
 .Conveyor__view {
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* View의 경계를 넘어가는 것은 숨김 */
+    overflow: hidden;
 }
 
 .Conveyor__slide {
     display: flex;
     position: relative;
-    width: calc(165px * 20); /* (original + clone)의 너비 */
+    width: calc(165px * 20); 
     animation: autoPlay 15s linear infinite;
 }
 
@@ -26,21 +26,125 @@
         transform: translateX(0);
     }
     100% {
-        transform: translateX(calc(-165px * 10)); /* original의 너비만큼 이동 */
+        transform: translateX(calc(-165px * 10));
     }
 }
 
-.Conveyor__slide > li {
-    width: 165px;
-    height: 165px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: solid 1px #bfbfbf;
-    color: black;
-    font-size: 24px;
-    list-style-type: none;
-    margin: 0 5px;
+.Conveyor__slide_imgBox {
     cursor: pointer;
-    border-radius: 5px;
+    width: 30rem;
+    height: 30rem;
+}
+
+.Conveyor__slide_img {
+    object-fit: cover;
+} */
+
+/* Conveyor.css */
+
+/* --- 슬라이더 래퍼 --- */
+.Conveyor__view {
+    position: relative;
+    padding: 2rem 0; /* 위아래 여백 */
+    overflow: visible; /* 좌우 peek 부분만 노출 */
+}
+
+/* --- 리스트(슬라이드 영역) --- */
+.Conveyor__view .slick-list {
+    overflow: visible; /* 다음 슬라이드 peek 허용 */
+    margin: 0 -16px; /* 슬라이드 좌우 margin 보정 */
+}
+
+/* --- 개별 슬라이드 간격 --- */
+.Conveyor__view .slick-slide {
+    box-sizing: border-box;
+    padding: 0 16px; /* 슬라이드 사이 32px 띄우기 */
+}
+
+/* --- 카드(이미지 박스) 크기 --- */
+.Conveyor__slide_imgBox {
+    width: 30rem; /* 카드 너비 고정 */
+    height: 20rem; /* 카드 높이 고정 */
+    overflow: hidden;
+    border-radius: 8px;
+    background: #fafafa;
+    cursor: pointer;
+    position: relative; /* 콘텐츠 오버레이용 */
+    width: 25rem;
+    height: 15rem;
+    margin: 0 12px;
+    border-radius: 8px;
+    background: #333;
+}
+
+/* 이미지 하단 정보 박스 */
+.Conveyor__slide_content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.6);
+    box-sizing: border-box;
+}
+.Conveyor__slide_content .title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.Conveyor__slide_content .price,
+.Conveyor__slide_content .time {
+    margin: 0.2rem 0 0;
+    font-size: 0.875rem;
+}
+
+/* --- 이미지 꽉 채우기 --- */
+.Conveyor__slide_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- 화살표 위치 조정 (optional) --- */
+.Conveyor__view .slick-prev,
+.Conveyor__view .slick-next {
+    bottom: -4rem; /* 슬라이더 아래에 배치 */
+    top: auto;
+}
+
+.slick-prev .slick-next {
+    /* left: 0 !important; */
+    margin: 0 20px !important;
+}
+
+/* Conveyor.css에 추가 */
+.Conveyor__view .slick-prev:before,
+.Conveyor__view .slick-next:before {
+    /* 화살표 색상 지정 (예: 흰색) */
+    color: #ffffff !important;
+    /* 화살표 크기 키우기 */
+    font-size: 24px !important;
+    /* 불투명도 최대로 */
+    opacity: 1 !important;
+    /* 외곽을 살짝 강조하는 그림자 */
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+}
+
+/* 화살표 위치나 클릭 영역 확장 (선택 사항) */
+.Conveyor__view .slick-prev,
+.Conveyor__view .slick-next {
+    width: 40px;
+    height: 40px;
+    /* 배경은 그대로 투명 */
+    background: transparent;
+    color: #f3f3f4 !important;
+}
+
+/* 화살표 영역에 마우스 오버 시 커서 변경 */
+.Conveyor__view .slick-prev:hover:before,
+.Conveyor__view .slick-next:hover:before {
+    /* 색상을 더 밝게 */
+    color: #bebebe !important;
 }

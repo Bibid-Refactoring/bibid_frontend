@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import '../css/Main/Mainpage.css';
 import { BestProduct } from '../components/Category/BestProduct';
 import Conveyor from '../components/Category/Conveyor';
@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import BannerUploader from '../components/Mainpage/BannerUploader';
 
 export const Mainpage = () => {
-
     const nickname = useSelector((state) => state.memberSlice.nickname);
 
     return (
@@ -19,6 +18,7 @@ export const Mainpage = () => {
             <div className="mp_container">
                 <div className="mp_banner">
                     <CarouselBanner />
+                    
                     <BannerUploader />
                 </div>
                 <div className="blank" />
