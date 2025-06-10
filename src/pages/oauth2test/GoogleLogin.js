@@ -34,17 +34,16 @@ function GoogleLogin() {
             if (hash) {
                 const accessToken = new URLSearchParams(hash.slice(1)).get('access_token');
                 if (accessToken) {
-                    // 여기에 토큰을 처리하는 로직을 추가하세요
-                    console.log('Access Token:', accessToken);
-                    // 예: API 요청이나 상태 관리에 토큰 저장
-                    await dispatch(googleJwtToken(accessToken));
+                    const result = await dispatch(googleJwtToken(accessToken));
+                    if (googleJwtToken.fulfilled.match(result)) {
+                        navi("/");
+                    } else {
+                        alert("구글 로그인 실패");
+                    }
                 }
-                navi("/");
             }
         };
-
         login();
-
     }, [dispatch, navi]);
 
     return (
