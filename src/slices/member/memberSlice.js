@@ -35,7 +35,6 @@ const memberSlice = createSlice({
         address: '',
         addressDetail: '',
         name: '',
-        memberPnum: '',
         checkLoginState: false,
         profileImageDto: '',
         accountDto:'',
@@ -79,18 +78,25 @@ const memberSlice = createSlice({
             return state;
         });
         builder.addCase(logout.fulfilled, (state, action) => {
-
             return {
                 ...state,
                 memberIndex: 0,
                 memberId: '',
                 nickname: '',
+                email: '',
+                verificationCode: '',
                 token: '',
-                profileImageDto : '',
-                accountDto : '',
+                keepLogin: false,
+                memberPw: '',
+                oauthType: '',
                 isLogin: false,
-                role: '',
-                checkLoginState: ''
+                address: '',
+                addressDetail: '',
+                name: '',
+                checkLoginState: false,
+                profileImageDto: '',
+                accountDto:'',
+                role:''
             }
         });
         builder.addCase(logout.rejected, (state, action) => {
@@ -153,8 +159,7 @@ const memberSlice = createSlice({
                 address: action.payload.memberAddress,
                 memberId: action.payload.memberId,
                 nickname: action.payload.nickname,
-                name: action.payload.name,
-                memberPnum: action.payload.memberPnum
+                name: action.payload.name
             }
         });
         builder.addCase(kakaoJwtToken.rejected, (state, action) => {
@@ -173,8 +178,7 @@ const memberSlice = createSlice({
                 address: action.payload.memberAddress,
                 memberId: action.payload.memberId,
                 nickname: action.payload.nickname,
-                name: action.payload.name,
-                memberPnum: action.payload.memberPnum
+                name: action.payload.name
             }
         });
         builder.addCase(naverJwtToken.rejected, (state, action) => {
@@ -193,8 +197,7 @@ const memberSlice = createSlice({
                 address: action.payload.memberAddress,
                 memberId: action.payload.memberId,
                 nickname: action.payload.nickname,
-                name: action.payload.name,
-                memberPnum: action.payload.memberPnum
+                name: action.payload.name
             }
         });
         builder.addCase(googleJwtToken.rejected, (state, action) => {
