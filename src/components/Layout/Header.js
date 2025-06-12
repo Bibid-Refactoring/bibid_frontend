@@ -10,7 +10,13 @@ import hamburgerIcon from '../../images/hamburger_icon.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import HeaderSearchBar from '../Search/HeaderSearchBar';
-import { checkLogin, getAccessToken, getTokenAndType, getType, logout } from '../../apis/etc2_memberapis/memberApis';
+import {
+    checkLogin,
+    getAccessToken,
+    getTokenAndType,
+    getType,
+    logout,
+} from '../../apis/etc2_memberapis/memberApis';
 import searchLogo from '../../images/search_icon.svg';
 import profileDefault from '../../images/profile_default.jpg';
 
@@ -28,7 +34,7 @@ const Header = () => {
             try {
                 const response = await axios.get(
                     `${process.env.REACT_APP_BACK_SERVER}/mypage/userInfo/${memberIndex}`,
-                    { withCredentials: true }
+                    { withCredentials: true },
                 );
                 setMemberInfo(response.data.item); // 응답에서 멤버 정보 저장
             } catch (error) {
@@ -56,16 +62,15 @@ const Header = () => {
         setProfileImageDto(member.profileImageDto);
     }, [member.profileImageDto]);
 
-    const [boxHeight, setBoxHeight] = useState('auto'); // 초기 높이 설정
     const [showWalletPopup, setShowWalletPopup] = useState(false); // 지갑 팝업 상태
     const [showDetailBox, setShowDetailBox] = useState(false);
 
-    const toggleCategoryMenu = () => {
-        setIsCategoryOpen((prev) => !prev);
+    const handleToggleMenu = () => {
+        setShowDetailBox((prev) => !prev);
     };
 
-    const goToCategory = (path) => () => {
-        navi(`/category/${path}`);
+    const goToURL = (path) => () => {
+        navi(`/${path}`);
     };
 
     const handleMouseOver = () => {
@@ -82,78 +87,6 @@ const Header = () => {
 
     const handleMouseLeaveWallet = () => {
         setShowWalletPopup(false);
-    };
-
-    let clickCate = true;
-
-    const handleMouseClick = (e) => {
-        if (clickCate) {
-            document.querySelector('.HDnavbarMenuDetailCategory').style.display = 'flex';
-            setBoxHeight('385px');
-            clickCate = false;
-        } else {
-            document.querySelector('.HDnavbarMenuDetailCategory').style.display = 'none';
-            setBoxHeight('auto');
-            clickCate = true;
-        }
-    };
-
-    // 로고 클릭 시 메인 페이지로 이동
-    const handleLogoClick = () => {
-        window.location.href = '/'; // mainpage로 페이지 이동
-    };
-
-    // 충전, 환전 클릭 시 마이 페이지로 이동
-    const handleChargeBttnClick = () => {
-        window.location.href = '/mypage/wallet'; // mainpage로 페이지 이동
-    };
-
-    const handleMypage = () => {
-        window.location.href = '/mypage/userInfo';
-    };
-
-    const handleWallet = () => {
-        window.location.href = '/mypage/wallet';
-    };
-
-    const handleToSearch = () => {
-        window.location.href = '/search';
-    };
-
-    const toCategory = () => {
-        window.location.href = '/category';
-    };
-
-    const toAll = () => {
-        window.location.href = '/category/all';
-    };
-
-    const toClothing = () => {
-        window.location.href = '/category/clothing';
-    };
-
-    const toHob = () => {
-        window.location.href = '/category/hob';
-    };
-
-    const toBook = () => {
-        window.location.href = '/category/book';
-    };
-
-    const toArt = () => {
-        window.location.href = '/category/art';
-    };
-
-    const toElec = () => {
-        window.location.href = '/category/elec';
-    };
-
-    const toPic = () => {
-        window.location.href = '/category/pic';
-    };
-
-    const toAntique = () => {
-        window.location.href = '/category/antique';
     };
 
     const [token, setToken] = useState(null);
@@ -193,7 +126,7 @@ const Header = () => {
             const url = 'https://kauth.kakao.com/oauth/logout';
             window.location.href = `${url}?client_id=${kakaoLogoutParams.client_id}&logout_redirect_uri=${kakaoLogoutParams.logout_redirect_uri}`;
         }
-        window.location.href = '/';
+        navi('/');
     }, [dispatch, oauthType]);
 
     return (
@@ -204,59 +137,32 @@ const Header = () => {
                         <div className="HDdropdownOverlay" onMouseOver={handleMouseLeave}></div>
                     </>
                 )}
-                <div className={`HDnavbarMenuDetailBox ${showDetailBox ? 'show' : ''}`} onMouseOver={handleMouseOver}>
+                <div
+                    className={`HDnavbarMenuDetailBox ${showDetailBox ? 'show' : ''}`}
+                    onMouseOver={handleMouseOver}
+                >
                     <div className="HDnavbarMenuDetailInner">
                         <div className="HDnavbarBlank"></div>
                         <div className="HDnavbarMenuDetailFlex">
                             <ul className="HDnavbarMenuDetail">
                                 <li className="title">바로가기</li>
-                                <li>
-                                    <a href="/specialAuction">실시간경매</a>
-                                </li>
-                                <li>
-                                    <a href="/category">일반경매</a>
-                                </li>
-                                <li>
-                                    <a href="/registration">물품등록</a>
-                                </li>
+                                <li onClick={goToURL('specialAuction')}>실시간경매</li>
+                                <li onClick={goToURL('category')}>일반경매</li>
+                                <li onClick={goToURL('registration')}>물품등록</li>
                             </ul>
                             <ul className="HDnavbarMenuDetail">
                                 <li className="title">분류</li>
-                                <li onClick={goToCategory('all')}>전체보기</li>
-                                <li onClick={goToCategory('clothing')}>의류/잡화</li>
-                                <li onClick={goToCategory('hobby')}>취미/수집</li>
-                                <li onClick={goToCategory('book')}>도서</li>
-                                <li onClick={goToCategory('art')}>예술품</li>
-                                <li onClick={goToCategory('elec')}>전자제품</li>
-                                <li onClick={goToCategory('pic')}>사진</li>
-                                <li onClick={goToCategory('antique')}>골동품</li>
-                                {/* <li>
-                                    <a href="/category/all">전체보기</a>
-                                </li>
-                                <li>
-                                    <a href="/category/clothing">의류/잡화</a>
-                                </li>
-                                <li>
-                                    <a href="/category/hobby">취미/수집</a>
-                                </li>
-                                <li>
-                                    <a href="/category/book">도서</a>
-                                </li>
-                                <li>
-                                    <a href="/category/art">예술품</a>
-                                </li>
-                                <li>
-                                    <a href="/category/elec">전자제품</a>
-                                </li>
-                                <li>
-                                    <a href="/category/pic">사진</a>
-                                </li>
-                                <li>
-                                    <a href="/category/antique">골동품</a>
-                                </li> */}
+                                <li onClick={goToURL('category/all')}>전체보기</li>
+                                <li onClick={goToURL('category/clothing')}>의류/잡화</li>
+                                <li onClick={goToURL('category/hobby')}>취미/수집</li>
+                                <li onClick={goToURL('category/book')}>도서</li>
+                                <li onClick={goToURL('category/art')}>예술품</li>
+                                <li onClick={goToURL('category/elec')}>전자제품</li>
+                                <li onClick={goToURL('category/pic')}>사진</li>
+                                <li onClick={goToURL('category/antique')}>골동품</li>
                             </ul>
 
-                            <div className="HDarrowIcon">
+                            {/* <div className="HDarrowIcon">
                                 <img src={rightArrowIcon}></img>
                             </div>
                             <div className="HDnavbarMenuDetailCategoryBox">
@@ -283,7 +189,7 @@ const Header = () => {
                                         <a href="#">골동품</a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -291,7 +197,7 @@ const Header = () => {
                 <div className="HDnavbar-Wrapper">
                     <div className="HDnavbarWrapperInner">
                         <nav className="HDnavbar">
-                            <div className="HDnavbarLogo" onClick={handleLogoClick}>
+                            <div className="HDnavbarLogo" onClick={goToURL('')}>
                                 <img src={logo} alt="navbarLogo"></img>
                             </div>
                             <div className="HDnavbarMenuWrapper" onMouseOver={handleMouseOver}>
@@ -323,7 +229,7 @@ const Header = () => {
                                                 border: '1px solid #cdcdcd',
                                                 borderRadius: '50%',
                                             }}
-                                            onClick={handleMypage}
+                                            onClick={goToURL('mypage/userInfo')}
                                         />
 
                                         {showWalletPopup && (
@@ -331,10 +237,17 @@ const Header = () => {
                                                 <h3>지갑</h3>
                                                 <div className="HDwalletAmount">
                                                     <p>금액</p>
-                                                    <p>{Number(accountDto.userMoney).toLocaleString()} 원</p>
+                                                    <p>
+                                                        {Number(
+                                                            accountDto.userMoney,
+                                                        ).toLocaleString()}{' '}
+                                                        원
+                                                    </p>
                                                 </div>
                                                 <div className="HDwalletButtons">
-                                                    <button onClick={handleChargeBttnClick}>지갑 관리</button>
+                                                    <button onClick={goToURL('mypage/wallet')}>
+                                                        지갑 관리
+                                                    </button>
                                                 </div>
                                             </div>
                                         )}
@@ -353,7 +266,11 @@ const Header = () => {
                                 </>
                             )}
                             <Alarm />
-                            <button type="button" className="HDnavbarToggleBtn" onClick={handleMouseOver}>
+                            <button
+                                type="button"
+                                className="HDnavbarToggleBtn"
+                                onClick={handleMouseOver}
+                            >
                                 <img src={hamburgerIcon} alt="hamburger_icon"></img>
                             </button>
                         </nav>
