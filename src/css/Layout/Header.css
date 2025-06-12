@@ -156,7 +156,7 @@ body {
     margin-right: 20px;
 }
 
-.HDnavbarMenuDetail li {
+.HDnavbarMenuDetail > title {
     list-style: none;
     padding: 5px 0;
     margin-bottom: 0.5rem;
@@ -165,14 +165,14 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-.HDnavbarMenuDetail li a {
+.HDnavbarMenuDetail li {
     text-decoration: none;
     color: rgb(53, 53, 53);
     font-size: 16px;
     font-weight: 600;
 }
 
-.HDnavbarMenuDetail li a:hover {
+.HDnavbarMenuDetail li:hover {
     color: #000000;
 }
 

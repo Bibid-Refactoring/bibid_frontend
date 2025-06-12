@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../css/Main/Conveyor.css'; // 이 파일을 추가했다고 가정
 import axios from 'axios';
 import defaultFileImg from '../../images/defaultFileImg.png';
@@ -9,22 +10,22 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const handleItemClick = (auctionIndex) => {
-    window.location.href = `/category-itemdetail/${auctionIndex}`;
-};
-
 function Conveyor() {
     const [bestProducts, setBestProducts] = useState([]);
+
+    const navi = useNavigate();
 
     useEffect(() => {
         const fetchBestProducts = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_BACK_SERVER}/auction/conveyor`);
+                const response = await axios.get(
+                    `${process.env.REACT_APP_BACK_SERVER}/auction/conveyor`,
+                );
                 if (response.data.statusCode !== 200) {
                     throw new Error('데이터를 가져오는 데 실패했습니다.');
                 }
 
-                console.log("response.data.pageItems.content: " + response.data);
+                console.log('response.data.pageItems.content: ' + response.data);
                 setBestProducts(response.data.pageItems.content);
             } catch (error) {
                 console.error('상품을 가져오는 중 오류 발생:', error);
@@ -33,6 +34,10 @@ function Conveyor() {
 
         fetchBestProducts();
     }, []);
+
+    const handleItemClick = (auctionIndex) => {
+        navi(`/category-itemdetail/${auctionIndex}`);
+    };
 
     const NextArrow = ({ onClick }) => (
         <button className="custom-arrow custom-next" onClick={onClick}>
@@ -67,12 +72,7 @@ function Conveyor() {
                 <p>경매 종료까지 시간이 얼마 남지 않은 경매입니다.</p>
             </div>
 
-            <Slider
-                {...settings}
-                className="Conveyor__slide"
-                onMouseEnter={() => setIsPaused(true)}
-                onMouseLeave={() => setIsPaused(false)}
-            >
+            <Slider {...settings} className="Conveyor__slide">
                 {bestProducts.map((auction) => {
                     const thumbnailImage = auction.auctionImageDtoList.find((i) => i.thumbnail);
                     const imageSrc =
@@ -86,7 +86,11 @@ function Conveyor() {
                             key={auction.auctionIndex}
                             onClick={() => handleItemClick(auction.auctionIndex)}
                         >
-                            <img className="Conveyor__slide_img" src={imageSrc} alt={auction.productName} />
+                            <img
+                                className="Conveyor__slide_img"
+                                src={imageSrc}
+                                alt={auction.productName}
+                            />
                             <div className="Conveyor__slide_content">
                                 <h3 className="title">{auction.productName}</h3>
                                 <p className="price">{auction.currentPrice}원</p>

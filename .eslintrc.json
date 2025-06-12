@@ -1,0 +1,11 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended" // ✨ Prettier 연동 핵심
+    ],
+    "plugins": ["prettier"],
+    "rules": {
+        "prettier/prettier": "error" // 포맷팅 오류를 ESLint가 잡아줌
+    }
+}

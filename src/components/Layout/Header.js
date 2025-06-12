@@ -20,6 +20,7 @@ const Header = () => {
 
     const [memberInfo, setMemberInfo] = useState(null);
     const memberIndex = useSelector((state) => state.memberSlice.memberIndex);
+    const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
     useEffect(() => {
         // API 호출 함수
@@ -58,6 +59,14 @@ const Header = () => {
     const [boxHeight, setBoxHeight] = useState('auto'); // 초기 높이 설정
     const [showWalletPopup, setShowWalletPopup] = useState(false); // 지갑 팝업 상태
     const [showDetailBox, setShowDetailBox] = useState(false);
+
+    const toggleCategoryMenu = () => {
+        setIsCategoryOpen((prev) => !prev);
+    };
+
+    const goToCategory = (path) => () => {
+        navi(`/category/${path}`);
+    };
 
     const handleMouseOver = () => {
         setShowDetailBox(true);
@@ -213,7 +222,15 @@ const Header = () => {
                             </ul>
                             <ul className="HDnavbarMenuDetail">
                                 <li className="title">분류</li>
-                                <li>
+                                <li onClick={goToCategory('all')}>전체보기</li>
+                                <li onClick={goToCategory('clothing')}>의류/잡화</li>
+                                <li onClick={goToCategory('hobby')}>취미/수집</li>
+                                <li onClick={goToCategory('book')}>도서</li>
+                                <li onClick={goToCategory('art')}>예술품</li>
+                                <li onClick={goToCategory('elec')}>전자제품</li>
+                                <li onClick={goToCategory('pic')}>사진</li>
+                                <li onClick={goToCategory('antique')}>골동품</li>
+                                {/* <li>
                                     <a href="/category/all">전체보기</a>
                                 </li>
                                 <li>
@@ -236,7 +253,7 @@ const Header = () => {
                                 </li>
                                 <li>
                                     <a href="/category/antique">골동품</a>
-                                </li>
+                                </li> */}
                             </ul>
 
                             <div className="HDarrowIcon">
