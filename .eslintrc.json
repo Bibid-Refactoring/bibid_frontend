@@ -6,6 +6,6 @@
     ],
     "plugins": ["prettier"],
     "rules": {
-        "prettier/prettier": "error" // 포맷팅 오류를 ESLint가 잡아줌
+        "prettier/prettier": ["error", { "endOfLine": "auto" }] // 포맷팅 오류를 ESLint가 잡아줌
     }
 }
