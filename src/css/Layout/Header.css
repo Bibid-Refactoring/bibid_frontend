@@ -106,7 +106,9 @@ body {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(6px);
     z-index: 999;
-    transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
+    transition:
+        backdrop-filter 0.3s ease,
+        background-color 0.3s ease;
 }
 
 .HDnavbarMenuDetailBox {
@@ -156,23 +158,28 @@ body {
     margin-right: 20px;
 }
 
-.HDnavbarMenuDetail > title {
-    list-style: none;
-    padding: 5px 0;
-    margin-bottom: 0.5rem;
-    white-space: nowrap;
+.HDnavbarMenuDetail .title {
     color: #707070;
-    transition: all 0.3s ease-in-out;
+    white-space: nowrap;
+    margin-bottom: 0.5rem;
+    list-style: none;
+    cursor: default;
 }
 
 .HDnavbarMenuDetail li {
+    margin-bottom: 0.5rem;
+    list-style: none;
+    padding: 5px 0;
     text-decoration: none;
     color: rgb(53, 53, 53);
     font-size: 16px;
     font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
 }
 
-.HDnavbarMenuDetail li:hover {
+.HDnavbarMenuDetail li:not(.title):hover {
     color: #000000;
 }
 
@@ -295,7 +302,7 @@ body {
     color: #000;
 }
 
-.HDnavbarAlarmWrapper{
+.HDnavbarAlarmWrapper {
     position: relative;
 }
 

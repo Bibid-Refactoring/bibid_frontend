@@ -117,7 +117,9 @@ const memberSlice = createSlice({
                 email: action.payload,
             };
         });
+      
         builder.addCase(findMember.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
@@ -127,7 +129,9 @@ const memberSlice = createSlice({
                 verificationCode: action.payload,
             };
         });
+
         builder.addCase(verificationCodeCheck.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
@@ -137,7 +141,9 @@ const memberSlice = createSlice({
                 memberId: action.payload.item,
             };
         });
+
         builder.addCase(findIdByEmail.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
@@ -147,7 +153,9 @@ const memberSlice = createSlice({
                 memberPw: action.payload.item,
             };
         });
+
         builder.addCase(modifyPasswd.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
@@ -165,7 +173,9 @@ const memberSlice = createSlice({
                 name: action.payload.name,
             };
         });
+
         builder.addCase(kakaoJwtToken.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
@@ -183,7 +193,9 @@ const memberSlice = createSlice({
                 name: action.payload.name,
             };
         });
+
         builder.addCase(naverJwtToken.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
@@ -201,7 +213,9 @@ const memberSlice = createSlice({
                 name: action.payload.name,
             };
         });
+
         builder.addCase(googleJwtToken.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
@@ -211,7 +225,9 @@ const memberSlice = createSlice({
                 checkLoginState: action.payload,
             };
         });
+
         builder.addCase(checkLogin.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
@@ -221,7 +237,9 @@ const memberSlice = createSlice({
                 profileImageDto: action.payload,
             };
         });
+
         builder.addCase(uploadProfileImage.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
@@ -232,7 +250,9 @@ const memberSlice = createSlice({
                 accountDto: action.payload,
             };
         });
+
         builder.addCase(chargeAccount.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
@@ -243,7 +263,9 @@ const memberSlice = createSlice({
                 accountDto: action.payload,
             };
         });
+
         builder.addCase(exchangeAccount.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
@@ -254,7 +276,9 @@ const memberSlice = createSlice({
                 accountDto: action.payload,
             };
         });
+
         builder.addCase(buyAuction.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
@@ -265,7 +289,9 @@ const memberSlice = createSlice({
                 accountDto: action.payload,
             };
         });
+
         builder.addCase(sellAuction.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
@@ -282,7 +308,9 @@ const memberSlice = createSlice({
                 isLogin: true,
             };
         });
+
         builder.addCase(fetchMember.rejected, (state) => {
+
             alert('에러가 발생했습니다.');
             return state;
         });
