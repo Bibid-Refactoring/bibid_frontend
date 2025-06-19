@@ -1,11 +1,19 @@
 {
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:prettier/recommended" // ✨ Prettier 연동 핵심
-    ],
+    "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
     "plugins": ["prettier"],
+    "parserOptions": {
+        "ecmaVersion": 2021,
+        "sourceType": "module", // ES6 import/export 사용 가능하게 함
+        "ecmaFeatures": {
+            "jsx": true // React JSX 문법 허용
+        }
+    },
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
     "rules": {
-        "prettier/prettier": ["error", { "endOfLine": "auto" }] // 포맷팅 오류를 ESLint가 잡아줌
+        "prettier/prettier": ["error", { "endOfLine": "auto" }]
     }
 }

@@ -67,6 +67,7 @@ body {
 .HDhamburgerMenu img {
     width: 22px;
     height: 22px;
+    cursor: pointer;
 }
 
 .HDhamburgerMenu button {
@@ -77,6 +78,7 @@ body {
     font-size: 18px;
     font-weight: bold;
     color: #303030;
+    cursor: pointer;
 }
 
 .HDnavbarMenu {
@@ -286,10 +288,6 @@ body {
 
 .HDnavbarMember li {
     list-style: none;
-    transition: all 0.3s ease;
-}
-
-.HDnavbarMember li a {
     color: rgb(53, 53, 53);
     text-decoration: none;
     font-size: 18px;
@@ -298,7 +296,7 @@ body {
     cursor: pointer;
 }
 
-.HDnavbarMember li a:hover {
+.HDnavbarMember li:hover {
     color: #000;
 }
 
@@ -309,6 +307,8 @@ body {
 .HDnavbarAlarm {
     display: flex;
     justify-content: center;
+    margin-right: 40px;
+    position: relative;
 }
 
 .HDnavbarAlarm img {
@@ -316,6 +316,9 @@ body {
     align-items: center;
     width: 40px;
     height: 40px;
+    cursor: pointer;
+    border: 1px solid #cdcdcd;
+    border-radius: 50%;
 }
 
 .HDnavbarToggleBtn {
@@ -341,6 +344,11 @@ body {
     .HDnavbar {
         justify-content: space-between;
         padding: 0 20px;
+    }
+
+    .HDnavbarAlarm {
+        margin-left: 40px;
+        margin-right: 0px;
     }
 }
 
