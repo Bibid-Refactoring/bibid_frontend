@@ -1,17 +1,17 @@
-.circle {
-    width: 40px; /* 원하는 너비 */
-    height: 40px; /* 원하는 높이 */
-    border-radius: 50%; /* 동그랗게 만들기 */
-    overflow: hidden; /* 이미지 넘침 방지 */
-    display: flex; /* 중앙 정렬을 위해 */
+/* .circle {
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    overflow: hidden; 
+    display: flex; 
     justify-content: center;
     align-items: center;
     margin: 20px;
 }
 
 .circle img {
-    width: auto; /* 이미지 너비를 100%로 설정 */
-    height: 100%; /* 비율 유지 */
+    width: auto; 
+    height: 100%; 
 }
 
 .joinFindContainer {
@@ -31,9 +31,236 @@
 }
 
 .vertical-line {
-    width: 2px; /* 세로 줄의 두께 */
-    height: 18px; /* 세로 줄의 높이 */
-    background-color: #000; /* 세로 줄의 색상 */
-    margin: 0 10px; /* 세로 줄과 링크 간의 간격 */
+    width: 2px; 
+    height: 18px; 
+    background-color: #000; 
+    margin: 0 10px; 
+}
+ */
+
+/*----------------------------------*/
+
+/* .page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9fafb;
 }
 
+.login-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-title {
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.login-input {
+    padding: 12px;
+    font-size: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.login-input:focus {
+    outline: none;
+    border-color: #4f46e5;
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #4338ca;
+}
+
+.checkbox-label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.social-login {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 24px;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.password-toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.join-find-container {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 24px;
+    font-size: 15px;
+}
+
+.vertical-line {
+    width: 1px;
+    height: 20px;
+    background-color: #000;
+} */
+
+/*--------------------------*/
+
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9fafb;
+}
+
+.login-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    padding: 35px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-logo {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    font-family: 'Inter', sans-serif;
+}
+
+.login-subtitle {
+    font-size: 12px;
+    font-weight: 600;
+    color: #474747;
+}
+
+.login-form {
+    width: 100%;
+}
+
+.login-label {
+    font-size: 14px;
+    margin: 16px 0 4px;
+    display: block;
+}
+
+.login-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    outline: none;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+}
+
+.login-input::placeholder {
+    color: #aaa;
+}
+
+.login-button {
+    width: 100%;
+    background-color: #f0f0f0;
+    color: #999;
+    padding: 14px;
+    margin-top: 16px;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.login-links {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    font-size: 13px;
+    margin: 24px 0;
+    color: #444;
+}
+
+.login-links a {
+    text-decoration: none;
+    color: #444;
+}
+
+.social-login-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.social-button {
+    position: relative;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    color: #111;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.social-button:hover {
+    background-color: #f7f7f7;
+}
+
+.social-button span {
+    display: inline-block;
+    pointer-events: none;
+}
+
+.social-icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+}
