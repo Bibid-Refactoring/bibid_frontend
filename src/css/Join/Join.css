@@ -1,0 +1,53 @@
+.join-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    height: 100vh;
+}
+.join-step {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.join-title {
+    width: 100%;
+    font-size: 2.5rem;
+    color: #444;
+    border-bottom: 2px solid #444;
+    padding-bottom: 8px;
+    margin-bottom: 40px;
+    text-align: left;
+}
+.join-actions {
+    margin-top: 40px;
+    display: flex;
+    gap: 16px;
+}
+.btn {
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+.next-btn {
+    background-color: #8b5cf6;
+    color: #fff;
+}
+.next-btn:hover {
+    background-color: #7c3aed;
+}
+.cancel-btn {
+    background-color: #ccc;
+    color: #333;
+}
+.cancel-btn:hover {
+    background-color: #bbb;
+}

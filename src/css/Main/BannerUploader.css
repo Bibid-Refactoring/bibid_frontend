@@ -78,7 +78,7 @@
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-.banner-uploader__select-button {
+/* .banner-uploader__select-button {
     max-width: 10rem;
     margin-top: 24px;
     padding: 8px 16px;
@@ -88,7 +88,7 @@
     border-radius: 9999px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-}
+} */
 
 .auction-label {
     display: block;
@@ -106,7 +106,7 @@
     margin-left: 4px;
 }
 
-.banner-uploader__upload-button {
+/* .banner-uploader__upload-button {
     max-width: 12rem;
     margin-top: 24px;
     padding: 8px 16px;
@@ -121,4 +121,35 @@
 .banner-uploader__upload-button:hover {
     background-color: #0071E3;
     color: #fff;
+} */
+
+
+.banner-uploader__select-button,
+.banner-uploader__upload-button {
+    max-width: 12rem;
+    margin-top: 24px;
+    padding: 10px 20px;
+    background-color: #8B5CF6;
+    color: #fff;
+    border: 1px solid #8B5CF6;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.banner-uploader__select-button:hover,
+.banner-uploader__upload-button:hover {
+    background-color: #7C3AED;
+    transform: translateY(-1px);
+}
+
+/* Optional: Disabled 상태 처리 */
+.banner-uploader__upload-button:disabled {
+    background-color: #E5E7EB;
+    color: #9CA3AF;
+    border-color: #E5E7EB;
+    cursor: default; 
+    pointer-events: none; 
 }

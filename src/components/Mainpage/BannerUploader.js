@@ -66,7 +66,10 @@ export default function BannerUploader() {
             formData.append('upload_preset', UPLOAD_PRESET);
 
             try {
-                const res = await axios.post(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, formData);
+                const res = await axios.post(
+                    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+                    formData,
+                );
                 const publicId = res.data.public_id;
 
                 const newBanner = {
@@ -111,7 +114,11 @@ export default function BannerUploader() {
                     className="banner-uploader__file-input"
                 />
 
-                <button type="button" className="banner-uploader__select-button" onClick={handleClickSelect}>
+                <button
+                    type="button"
+                    className="banner-uploader__select-button"
+                    onClick={handleClickSelect}
+                >
                     파일 선택
                 </button>
                 <p className="banner-uploader__note">여러 개의 이미지를 선택할 수 있습니다.</p>
@@ -120,7 +127,11 @@ export default function BannerUploader() {
                     <div className="banner-uploader__preview-container">
                         {previews.map(({ file, previewUrl }) => (
                             <div key={previewUrl} className="banner-uploader__preview-item">
-                                <img src={previewUrl} alt={file.name} className="banner-uploader__preview-image" />
+                                <img
+                                    src={previewUrl}
+                                    alt={file.name}
+                                    className="banner-uploader__preview-image"
+                                />
                                 <button
                                     onClick={() => handleRemovePreview(file)}
                                     className="banner-uploader__remove-button"
@@ -145,7 +156,11 @@ export default function BannerUploader() {
                     />
                 </label>
 
-                <button onClick={handleUploadAll} className="banner-uploader__upload-button">
+                <button
+                    onClick={handleUploadAll}
+                    className="banner-uploader__upload-button"
+                    disabled={selectedFiles.length === 0 || auctionNumber.trim() === ''}
+                >
                     선택된 배너 모두 업로드
                 </button>
             </div>

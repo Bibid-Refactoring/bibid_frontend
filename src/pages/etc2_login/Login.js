@@ -288,6 +288,7 @@ import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../../apis/etc2_memberapis/memberApis';
+import LoginLayout from '../../components/Layout/LoginLayout';
 import '../../css/Login.css';
 
 const Login = () => {
@@ -324,73 +325,89 @@ const Login = () => {
         }));
     }, []);
 
+    const isLoginDisabled = !loginForm.memberId || !loginForm.memberPw;
+
+    const state = '1234'; // CSRF 방지를 위한 임시 state 값 (실제로는 난수로 생성 권장)
+
+    const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
+
+    const naverURL = `https://nid.naver.com/oauth2.0/authorize?client_id=${process.env.REACT_APP_NAVER_API_KEY}&response_type=code&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}&state=${state}`;
+
+    const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_API_KEY}&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&response_type=token&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile`;
+
     const handleKakaoLogin = () => {
-        window.location.href = process.env.REACT_APP_KAKAO_URL;
+        window.location.href = kakaoURL;
     };
 
     const handleNaverLogin = () => {
-        window.location.href = process.env.REACT_APP_NAVER_URL;
+        window.location.href = naverURL;
     };
 
     const handleGoogleLogin = () => {
-        window.location.href = process.env.REACT_APP_GOOGLE_URL;
+        window.location.href = googleURL;
+    };
+
+    const goToURL = (path) => () => {
+        navi(`/${path}`);
     };
 
     return (
-        <div className="page-wrapper">
-            <div className="login-card">
-                <h1 className="login-logo">BIBID</h1>
-                <p className="login-subtitle">RARE. LIVE. YOURS.</p>
-                <form onSubmit={handleLogin}>
-                    <label className="login-label">아이디</label>
-                    <input
-                        name="memberId"
-                        type="text"
-                        className="login-input"
-                        placeholder="아이디"
-                        value={loginForm.memberId}
-                        onChange={changeTextField}
-                        required
-                    />
-                    <label className="login-label">비밀번호</label>
-                    <input
-                        name="memberPw"
-                        type="password"
-                        className="login-input"
-                        placeholder="비밀번호"
-                        value={loginForm.memberPw}
-                        onChange={changeTextField}
-                        required
-                    />
-                    <button className="login-button" type="submit">
-                        로그인
-                    </button>
-                </form>
+        <LoginLayout>
+            <h1 className="login-logo">BIBID</h1>
+            <p className="login-subtitle">RARE. LIVE. YOURS.</p>
+            <form onSubmit={handleLogin}>
+                <label className="login-label">아이디</label>
+                <input
+                    name="memberId"
+                    type="text"
+                    className="login-input"
+                    placeholder="아이디"
+                    value={loginForm.memberId}
+                    onChange={changeTextField}
+                />
+                <label className="login-label">비밀번호</label>
+                <input
+                    name="memberPw"
+                    type="password"
+                    className="login-input"
+                    placeholder="비밀번호"
+                    value={loginForm.memberPw}
+                    onChange={changeTextField}
+                />
+                <button className="login-button" type="submit" disabled={isLoginDisabled}>
+                    로그인
+                </button>
+            </form>
 
-                <div className="login-links">
-                    <a href="/join">이메일 가입</a>
-                    <span>|</span>
-                    <a href="/find-email">이메일 찾기</a>
-                    <span>|</span>
-                    <a href="/find-password">비밀번호 찾기</a>
-                </div>
-
-                <div className="social-login-block">
-                    <button className="social-button kakao" onClick={handleKakaoLogin}>
-                        <img src="/images/logo/kakao.png" alt="kakao" className="social-icon" />
-                        <span>카카오 로그인</span>
-                    </button>
-                    <button className="social-button naver" onClick={handleNaverLogin}>
-                        <img src="/images/logo/naver.png" alt="naver" className="social-icon" />
-                        <span>네이버 로그인</span>
-                    </button>
-                    <button className="social-button google" onClick={handleGoogleLogin}>
-                        <img src="/images/logo/google.png" alt="google" className="social-icon" />
-                        <span>구글 로그인</span>
-                    </button>
-                </div>
+            <div className="login-links">
+                <span onClick={goToURL('join')} className="login-links-buttons">
+                    회원 가입
+                </span>
+                <span>|</span>
+                <span onClick={goToURL('find')} className="login-links-buttons">
+                    아이디 찾기
+                </span>
+                <span>|</span>
+                <span onClick={goToURL('modifyPasswd')} className="login-links-buttons">
+                    비밀번호 찾기
+                </span>
             </div>
-        </div>
+
+            <div className="social-login-block">
+                <button className="social-button kakao" onClick={handleKakaoLogin}>
+                    <img src="/images/logo/kakao.svg" alt="kakao" className="social-icon" />
+                    <span>카카오 로그인</span>
+                </button>
+                <button className="social-button naver" onClick={handleNaverLogin}>
+                    <img src="/images/logo/naver.svg" alt="naver" className="social-icon" />
+                    <span>네이버 로그인</span>
+                </button>
+                <button className="social-button google" onClick={handleGoogleLogin}>
+                    <img src="/images/logo/google.svg" alt="google" className="social-icon" />
+                    <span>구글 로그인</span>
+                </button>
+            </div>
+        </LoginLayout>
     );
 };
 

@@ -44,7 +44,11 @@ const Footer = () => {
                                 <img src={pinterestIcon} alt="핀터레스트" />
                             </a>
                         </div>
-                        <button onClick={handleScrollTop} className="footer__top-button" aria-label="맨 위로 이동">
+                        <button
+                            onClick={handleScrollTop}
+                            className="footer__top-button"
+                            aria-label="맨 위로 이동"
+                        >
                             ↑ 상단으로 가기
                         </button>
                     </div>
@@ -78,7 +82,10 @@ const Footer = () => {
                                     Tel: <a href="tel:01012345678">010-1234-5678</a>
                                 </p>
                                 <p>
-                                    Email: <a href="mailto:bitcamp502@bitcamp.com">bitcamp502@bitcamp.com</a>
+                                    Email:{' '}
+                                    <a href="mailto:bitcamp502@bitcamp.com">
+                                        bitcamp502@bitcamp.com
+                                    </a>
                                 </p>
                             </address>
                             <p className="footer__team">사이트 제작: 이주성</p>
