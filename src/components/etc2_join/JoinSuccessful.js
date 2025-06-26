@@ -1,6 +1,6 @@
 import React from 'react';
 
-const StepThree = ({ data }) => {
+const JoinSuccessful = ({ data }) => {
     return (
         <div className="join-complete">
             <h2>가입 완료</h2>
@@ -10,4 +10,4 @@ const StepThree = ({ data }) => {
     );
 };
 
-export default StepThree;
+export default JoinSuccessful;

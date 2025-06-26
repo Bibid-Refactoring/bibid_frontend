@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ModalContent from './CheckBoxModalContent';
-import '../../css/Join/StepOne.css'; // 필요한 CSS 스타일 작성
+import '../../css/Join/JoinCheckBoxInput.css';
 
-const StepOne = ({ data, update, next }) => {
+const JoinCheckBoxInput = ({ agreements, update, errors, agreementRef }) => {
     const boxes = [
         '[필수] BIBID 이용약관 동의',
         '[필수] 전자금융거래 이용약관 동의',
@@ -12,21 +12,18 @@ const StepOne = ({ data, update, next }) => {
         '[선택] 광고성 정보 수신 동의',
     ];
 
-    const [checked, setChecked] = useState(Array(boxes.length + 1).fill(false)); // +1 for "만 14세 이상"
-    const [openModals, setOpenModals] = useState(Array(boxes.length).fill(false));
+    const [openModals, setOpenModals] = React.useState(Array(boxes.length).fill(false));
 
     const handleChangeAll = () => {
-        const allChecked = checked.every(Boolean);
-        const newChecked = checked.map(() => !allChecked);
-        setChecked(newChecked);
-        update({ agreements: newChecked });
+        const allChecked = agreements.every(Boolean);
+        const newChecked = agreements.map(() => !allChecked);
+        update(newChecked);
     };
 
     const handleChange = (index) => {
-        const newChecked = [...checked];
+        const newChecked = [...agreements];
         newChecked[index] = !newChecked[index];
-        setChecked(newChecked);
-        update({ agreements: newChecked });
+        update(newChecked);
     };
 
     const handleOpen = (index) => {
@@ -41,29 +38,20 @@ const StepOne = ({ data, update, next }) => {
         setOpenModals(modals);
     };
 
-    const handleNext = () => {
-        const required = [0, 1, 2, 3, 4]; // 만14세 + 필수 약관들
-        const allAgreed = required.every((i) => checked[i]);
-        if (allAgreed) {
-            next();
-        } else {
-            alert('필수 항목을 모두 체크해 주세요.');
-        }
-    };
-
     return (
         <div className="checkbox-wrapper">
             <label className="check-all">
                 <input
                     type="checkbox"
-                    checked={checked.every(Boolean)}
+                    checked={agreements.every(Boolean)}
                     onChange={handleChangeAll}
+                    ref={agreementRef.agreements}
                 />
                 모두 확인하였으며 동의합니다.
             </label>
 
             <label className="checkbox-item">
-                <input type="checkbox" checked={checked[0]} onChange={() => handleChange(0)} />
+                <input type="checkbox" checked={agreements[0]} onChange={() => handleChange(0)} />
                 [필수] 만 14세 이상입니다.
             </label>
 
@@ -72,7 +60,7 @@ const StepOne = ({ data, update, next }) => {
                     <label className="checkbox-item">
                         <input
                             type="checkbox"
-                            checked={checked[i + 1]}
+                            checked={agreements[i + 1]}
                             onChange={() => handleChange(i + 1)}
                         />
                         {label}
@@ -94,12 +82,9 @@ const StepOne = ({ data, update, next }) => {
                     )}
                 </div>
             ))}
-
-            <div className="join-actions">
-                <button onClick={handleNext}>다음</button>
-            </div>
+            {errors.agreements && <div className="error-message">{errors.agreements}</div>}
         </div>
     );
 };
 
-export default StepOne;
+export default JoinCheckBoxInput;

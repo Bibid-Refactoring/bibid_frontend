@@ -146,12 +146,13 @@
 //     );
 // }
 
-import React, { useState } from 'react';
-import StepOne from '../../components/etc2_join/StepOne';
-import StepTwo from '../../components/etc2_join/StepTwo';
-import StepThree from '../../components/etc2_join/StepThree';
-import Circle from '../../components/etc2_join/Circle';
+import React, { useRef, useState } from 'react';
+import JoinFormDataInput from '../../components/etc2_join/JoinFormDataInput';
+import JoinCheckBoxInput from '../../components/etc2_join/JoinCheckBoxInput';
+import JoinSuccessful from '../../components/etc2_join/JoinSuccessful';
 import LoginLayout from '../../components/Layout/LoginLayout';
+import { useDispatch } from 'react-redux';
+import { join } from '../../apis/etc2_memberapis/memberApis';
 import '../../css/Join/Join.css';
 
 const Join = () => {
@@ -166,28 +167,177 @@ const Join = () => {
         email: '',
         address: '',
         addressDetail: '',
-        agreements: [],
     });
 
-    const nextStep = () => setStep((prev) => prev + 1);
-    const prevStep = () => setStep((prev) => prev - 1);
+    const [agreements, setAgreements] = useState(Array(7).fill(false));
+    const [errors, setErrors] = useState({});
+    const dispatch = useDispatch();
 
-    const updateFormData = (newData) => setFormData((prev) => ({ ...prev, ...newData }));
+    const isEmpty = (val) => !val || !val.trim();
+    const isValidId = (val) => /^[a-zA-Z0-9_]{4,20}$/.test(val);
+    const isValidPw = (val) => /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*+=-]).{9,}$/.test(val);
+    const isValidPhone = (val) => /^010\d{8}$/.test(val);
+    const isValidEmail = (val) => /^[\w.-]+@[\w.-]+\.[A-Za-z]{2,}$/.test(val);
+
+    const validateField = (name, value) => {
+        let message = '';
+        switch (name) {
+            case 'name':
+                if (isEmpty(value)) message = '이름을 입력하세요.';
+                break;
+            case 'memberId':
+                if (isEmpty(value)) message = '아이디를 입력하세요.';
+                else if (!isValidId(value))
+                    message = '아이디는 영문자, 숫자 조합 4~20자여야 합니다.';
+                break;
+            case 'memberPw':
+                if (isEmpty(value)) message = '비밀번호를 입력하세요.';
+                else if (!isValidPw(value))
+                    message = '비밀번호는 특수문자, 숫자, 영문자 조합의 9자리 이상이어야 합니다.';
+                break;
+            case 'memberPwCheck':
+                if (value !== formData.memberPw) message = '비밀번호가 일치하지 않습니다.';
+                break;
+            case 'nickname':
+                if (isEmpty(value)) message = '닉네임을 입력하세요.';
+                break;
+            case 'memberPnum':
+                if (isEmpty(value)) message = '휴대전화 번호를 입력하세요.';
+                else if (!isValidPhone(value))
+                    message = '휴대전화는 010으로 시작하는 11자리 숫자여야 합니다.';
+                break;
+            case 'email':
+                if (isEmpty(value)) message = '이메일을 입력하세요.';
+                else if (!isValidEmail(value)) message = '올바른 이메일 형식을 입력하세요.';
+                break;
+            case 'address':
+                if (isEmpty(value)) message = '주소를 입력하세요.';
+                break;
+            case 'addressDetail':
+                if (isEmpty(value)) message = '상세주소를 입력하세요.';
+                break;
+            default:
+                break;
+        }
+        return message;
+    };
+
+    const validateAll = () => {
+        const newErrors = {};
+        let isValid = true;
+
+        for (const [key, value] of Object.entries(formData)) {
+            const message = validateField(key, value);
+            if (message) {
+                newErrors[key] = message;
+                isValid = false;
+            }
+        }
+
+        const required = [0, 1, 2, 3, 4];
+        const allAgreed = required.every((i) => agreements[i]);
+        if (!allAgreed) {
+            newErrors.agreements = '필수 약관에 모두 동의해주세요.';
+            isValid = false;
+        }
+
+        setErrors(newErrors);
+
+        return { isValid, newErrors }; // ✅ 오류 목록도 리턴
+    };
+
+    const refs = {
+        name: useRef(),
+        memberId: useRef(),
+        memberPw: useRef(),
+        memberPwCheck: useRef(),
+        nickname: useRef(),
+        memberPnum: useRef(),
+        email: useRef(),
+        address: useRef(),
+        addressDetail: useRef(),
+        agreements: useRef(),
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const { isValid, newErrors } = validateAll();
+
+        if (!isValid) {
+            // 직접 받은 오류 객체로 포커스
+            for (const key of [
+                'name',
+                'memberId',
+                'memberPw',
+                'memberPwCheck',
+                'nickname',
+                'memberPnum',
+                'email',
+                'address',
+                'addressDetail',
+                'agreements',
+            ]) {
+                if (newErrors[key]) {
+                    refs[key]?.current?.focus();
+                    break;
+                }
+            }
+            return;
+        }
+
+        try {
+            await dispatch(join({ ...formData, agreements }));
+            alert('회원가입 완료!');
+            setStep(1);
+        } catch (err) {
+            console.error('회원가입 실패:', err);
+            alert('회원가입 실패. 다시 시도해주세요.');
+        }
+    };
+
+    const updateFormData = (newData) => {
+        setFormData((prev) => ({ ...prev, ...newData }));
+    };
+
+    const updateAgreements = (newChecked) => {
+        setAgreements(newChecked);
+        const required = [0, 1, 2, 3, 4];
+        const allAgreed = required.every((i) => newChecked[i]);
+        const message = allAgreed ? '' : '필수 약관에 모두 동의해주세요.';
+        setErrors((prev) => ({ ...prev, agreements: message }));
+    };
 
     return (
         <LoginLayout>
             <div className="join-container">
-                <Circle step={step} />
-                {step === 0 && <StepOne data={formData} update={updateFormData} next={nextStep} />}
-                {step === 1 && (
-                    <StepTwo
-                        data={formData}
-                        update={updateFormData}
-                        next={nextStep}
-                        prev={prevStep}
-                    />
+                {step === 0 ? (
+                    <>
+                        <h2 className="join-title">회원가입</h2>
+                        <form onSubmit={handleSubmit}>
+                            <JoinFormDataInput
+                                data={formData}
+                                update={updateFormData}
+                                errors={errors}
+                                setErrors={setErrors}
+                                validateField={validateField}
+                                refs={refs}
+                            />
+                            <JoinCheckBoxInput
+                                agreements={agreements}
+                                update={updateAgreements}
+                                errors={errors}
+                                agreementRef={refs}
+                            />
+                            <div className="join-actions">
+                                <button type="submit" className="btn submit-btn">
+                                    제출하고 회원 가입하기
+                                </button>
+                            </div>
+                        </form>
+                    </>
+                ) : (
+                    <JoinSuccessful data={{ ...formData, agreements }} />
                 )}
-                {step === 2 && <StepThree data={formData} />}
             </div>
         </LoginLayout>
     );
